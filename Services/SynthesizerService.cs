@@ -15,12 +15,7 @@ public class SynthesizerService : ISynthesizerService
 
     public SynthesizerId CreateSynthesizer(CreateSynthesizerRequest request)
     {
-        var validationErrors = request.Validate();
-        if (validationErrors.Any())
-        {
-            var errors = string.Join('\n', validationErrors);
-            throw new ArgumentException($"Parameter had following errors:\n{errors}", nameof(request));
-        }
+        request.ThrowModelErrors(nameof(request));
 
         var synthesizerId = SynthesizerId.NewId();
 
@@ -59,12 +54,7 @@ public class SynthesizerService : ISynthesizerService
 
     public void UpdateSynthesizer(UpdateSynthesizerRequest request)
     {
-        var validationErrors = request.Validate();
-        if (validationErrors.Any())
-        {
-            var errors = string.Join('\n', validationErrors);
-            throw new ArgumentException($"Parameter had following errors:\n{errors}", nameof(request));
-        }
+        request.ThrowModelErrors(nameof(request));
 
         var currentSynthesizer = GetSynthesizer(request.SynthesizerId);
 
