@@ -1,6 +1,5 @@
 ﻿using Moq;
 using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Services;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;
