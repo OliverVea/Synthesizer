@@ -14,9 +14,9 @@ public class SynthesizerStore : ISynthesizerStore
 
     public SynthesizerInformation GetSynthesizer(SynthesizerId id)
     {
-        if (!_synthesizers.ContainsKey(id)) 
+        if (!_synthesizers.ContainsKey(id))
             throw new KeyNotFoundException($"A synthesizer could not be found with id '{id}'.");
-        
+
         return _synthesizers[id];
     }
 

@@ -21,7 +21,7 @@ public class SawtoothGeneratorUnitTests
 
         // Act
         _sut.GenerateSamples(samples, samples.Length, samplingFrequency, waveAmplitude, waveFrequency, offset);
-        
+
         // Assert
         var expected = new[] { 0, 0.5, 1.0, 1.5, 0.0, 0.5, 1.0, 1.5, 0.0 };
         CollectionAssert.AreEqual(expected, samples, _comparer);
@@ -39,7 +39,7 @@ public class SawtoothGeneratorUnitTests
 
         // Act
         _sut.GenerateSamples(samples, samples.Length, samplingFrequency, waveAmplitude, waveFrequency, offset);
-        
+
         // Assert
         var expected = new[] { 0.05, 0.55, 1.05, 1.55, 0.05, 0.55, 1.05, 1.55, 0.05 };
         CollectionAssert.AreEqual(expected, samples, _comparer);
@@ -57,7 +57,7 @@ public class SawtoothGeneratorUnitTests
 
         // Act
         _sut.GenerateSamples(samples, samples.Length, samplingFrequency, waveAmplitude, waveFrequency, offset);
-        
+
         // Assert
         var expected = new[] { 1.95, 0.45, 0.95, 1.45, 1.95, 0.45, 0.95, 1.45, 1.95 };
         CollectionAssert.AreEqual(expected, samples, _comparer);
@@ -75,7 +75,7 @@ public class SawtoothGeneratorUnitTests
 
         // Act
         _sut.GenerateSamples(samples, samples.Length, samplingFrequency, waveAmplitude, waveFrequency, offset);
-        
+
         // Assert
         var expected = new[] { 0.05, 0.55, 1.05, 1.55, 0.05, 0.55, 1.05, 1.55, 0.05 };
         CollectionAssert.AreEqual(expected, samples, _comparer);

@@ -29,13 +29,13 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     {
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest().Create();
-        
+
         // Act
         _sut.CreateSynthesizer(request);
-        
+
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(
-            It.IsAny<SynthesizerId>(), 
+            It.IsAny<SynthesizerId>(),
             It.IsAny<SynthesizerInformation>()));
     }
 
@@ -44,13 +44,13 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     {
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest().Create();
-        
+
         // Act
         var expected = _sut.CreateSynthesizer(request);
-        
+
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(
-            It.Is<SynthesizerId>(y => y == expected), 
+            It.Is<SynthesizerId>(y => y == expected),
             It.IsAny<SynthesizerInformation>()));
     }
 
@@ -60,13 +60,13 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest()
             .With(x => x.Waveform, waveform).Create();
-        
+
         // Act
         _sut.CreateSynthesizer(request);
-        
+
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(
-            It.IsAny<SynthesizerId>(), 
+            It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.Waveform == waveform)));
     }
 
@@ -76,23 +76,23 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest()
             .With(x => x.SampleRate, sampleRate).Create();
-        
+
         // Act
         _sut.CreateSynthesizer(request);
-        
+
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(
-            It.IsAny<SynthesizerId>(), 
+            It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.SampleRate == sampleRate)));
     }
 
-    private static readonly object[] Waveforms = 
+    private static readonly object[] Waveforms =
     {
         Waveform.None,
         Waveform.Sawtooth,
         Waveform.Sine,
         Waveform.Square,
-        Waveform.Triangle 
+        Waveform.Triangle
     };
 
     private static readonly int[] SampleRates =

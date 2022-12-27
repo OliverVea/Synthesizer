@@ -5,7 +5,7 @@ namespace Synthesizer.Services.Helpers;
 
 public class WaveformHelper : IWaveformHelper
 {
-    private readonly IReadOnlyDictionary<Waveform, IWaveformGenerator> _waveformGenerators = 
+    private readonly IReadOnlyDictionary<Waveform, IWaveformGenerator> _waveformGenerators =
         new Dictionary<Waveform, IWaveformGenerator>
     {
         {Waveform.None, new NoneGenerator()},
