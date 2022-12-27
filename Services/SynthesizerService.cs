@@ -37,6 +37,21 @@ public class SynthesizerService : ISynthesizerService
         return synthesizerId;
     }
 
+    public SynthesizerInformation? GetSynthesizer(SynthesizerId id)
+    {
+        return _store.GetSynthesizer(id);
+    }
+
+    public SynthesizerInformation[] ListSynthesizers()
+    {
+        return _store.ListSynthesizers();
+    }
+
+    public void DeleteSynthesizer(SynthesizerId id)
+    {
+        _store.DeleteSynthesizer(id);
+    }
+
     public AudioSample GetNextSamples(SynthesizerId id, int sampleCount)
     {
         throw new NotImplementedException();
