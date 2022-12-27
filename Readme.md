@@ -19,12 +19,12 @@ Project management to keep track of goals and tasks. I find it important to have
     * [x] ~~Deleting synthesizer~~
     * [x] ~~Updating synthesizer~~
 * [ ] Oscillators
-    * [ ] Create new service for CRUD
+    * [x] Create new service for CRUD
         * [x] ~~Get~~
         * [x] ~~List~~
         * [x] ~~Create~~
-        * [ ] Delete
-        * [ ] Update
+        * [x] ~~Delete~~
+        * [x] ~~Update~~
     * [ ] Add oscillator to synthesizer
 * [ ] Generating audio samples
 * [ ] Envelope CRUD

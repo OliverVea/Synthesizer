@@ -32,7 +32,7 @@ public class OscillatorService : IOscillatorService
 
         var oscillatorInformation = new OscillatorInformation
         {
-            WaveForm = request.Waveform,
+            Waveform = request.Waveform,
             Frequency = request.Frequency,
             Amplitude = request.Amplitude
         };
@@ -49,6 +49,8 @@ public class OscillatorService : IOscillatorService
 
     public void UpdateOscillator(UpdateOscillatorRequest request)
     {
+        request.ThrowModelErrors(nameof(request));
+
         var currentOscillator = _store.GetOscillator(request.OscillatorId);
         if (currentOscillator == null)
             throw new ArgumentException($"Could not find oscillator with id '{request.OscillatorId}.",
@@ -56,7 +58,9 @@ public class OscillatorService : IOscillatorService
 
         var newOscillator = currentOscillator with
         {
-            Amplitude = request.Amplitude ?? currentOscillator.Amplitude
+            Amplitude = request.Amplitude ?? currentOscillator.Amplitude,
+            Frequency = request.Frequency ?? currentOscillator.Frequency,
+            Waveform = request.Waveform ?? currentOscillator.Waveform
         };
 
         _store.SetOscillator(request.OscillatorId, newOscillator);

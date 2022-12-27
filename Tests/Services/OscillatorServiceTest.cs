@@ -71,7 +71,7 @@ public class OscillatorServiceTest : BaseUnitTest
         // Assert
         _mockedStore.Verify(x => x.SetOscillator(
             It.IsAny<OscillatorId>(),
-            It.Is<OscillatorInformation>(y => y.WaveForm == waveform)), Times.Once);
+            It.Is<OscillatorInformation>(y => y.Waveform == waveform)), Times.Once);
     }
 
     [TestCaseSource(nameof(Frequencies))]
@@ -294,6 +294,79 @@ public class OscillatorServiceTest : BaseUnitTest
         // Assert
         _mockedStore.Verify(x => x.SetOscillator(id,
             It.Is<OscillatorInformation>(y => Math.Abs(y.Amplitude - amplitude) < tolerance)));
+    }
+
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void UpdateOscillator_InvalidAmplitude_ThrowsArgumentException(double invalidAmplitude)
+    {
+        // Arrange
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id)
+            .With(x => x.Amplitude, invalidAmplitude).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(new OscillatorInformation());
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateOscillator(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.Amplitude)));
+    }
+
+    [TestCaseSource(nameof(Frequencies))]
+    public void UpdateOscillator_NewFrequency_UpdatesStoredOscillator(double frequency)
+    {
+        // Arrange
+        var tolerance = DefaultDoubleTolerance(frequency);
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id)
+            .With(x => x.Frequency, frequency).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(new OscillatorInformation());
+
+        // Act
+        _sut.UpdateOscillator(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetOscillator(id,
+            It.Is<OscillatorInformation>(y => Math.Abs(y.Frequency - frequency) < tolerance)));
+    }
+
+    [TestCaseSource(nameof(InvalidFrequencies))]
+    public void UpdateOscillator_InvalidFrequency_ThrowsArgumentException(double invalidFrequency)
+    {
+        // Arrange
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id)
+            .With(x => x.Frequency, invalidFrequency).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(new OscillatorInformation());
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateOscillator(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.Frequency)));
+    }
+
+    [TestCaseSource(nameof(Waveforms))]
+    public void UpdateOscillator_NewWaveform_UpdatesStoredOscillator(Waveform waveform)
+    {
+        // Arrange
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id)
+            .With(x => x.Waveform, waveform).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(new OscillatorInformation());
+
+        // Act
+        _sut.UpdateOscillator(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetOscillator(id,
+            It.Is<OscillatorInformation>(y => y.Waveform == waveform)));
     }
 
     # endregion
