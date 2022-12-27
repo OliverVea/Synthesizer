@@ -42,10 +42,11 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         1.0
     };
 
-    private readonly Mock<ISynthesizerStore> _mockedStore;
-    private readonly SynthesizerService _sut;
+    private Mock<ISynthesizerStore> _mockedStore = null!;
+    private SynthesizerService _sut = null!;
 
-    public SynthesizerServiceUnitTests()
+    [SetUp]
+    public void SetupMocks()
     {
         _mockedStore = new Mock<ISynthesizerStore>();
         _sut = new SynthesizerService(_mockedStore.Object);
