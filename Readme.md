@@ -12,11 +12,11 @@ Project management to keep track of goals and tasks. I find it important to have
     * [x] ~~Create repo~~
     * [x] ~~Create setup~~
     * [x] ~~Create pipeline with tests and dotnet format~~
-* [ ] Synthesizer CRUD
-    * [x] Creating basic synthesizer
-    * [x] Getting synthesizer
-    * [ ] Listing synthesizers
-    * [ ] Deleting synthesizer
+* [x] ~~Synthesizer CRUD~~
+    * [x] ~~Creating basic synthesizer~~
+    * [x] ~~Getting synthesizer~~
+    * [x] ~~Listing synthesizers~~
+    * [x] ~~Deleting synthesizer~~
 * [ ] Oscillator CRUD
 * [ ] Generating audio samples
 * [ ] Envelope CRUD
