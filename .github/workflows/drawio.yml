@@ -18,11 +18,11 @@ jobs:
         uses: Burnett01/actions-drawio@1.2
         with:
           src: ProjectStructure.drawio
-          dest: ProjectStructure.jpeg
+          dest: ProjectStructure.png
 
       - name: Upload image as artifact
         uses: actions/upload-artifact@v3
         with:
           name: project-structure
-          path: ProjectStructure.jpeg
+          path: ProjectStructure.png
           if-no-files-found: error
