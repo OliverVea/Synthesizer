@@ -48,4 +48,11 @@ public interface ISynthesizerService
     /// <param name="sampleCount">Number of samples to generate.</param>
     /// <returns>Object containing audio samples generated from the synthesizer.</returns>
     AudioSample GetNextSamples(SynthesizerId id, int sampleCount);
+
+    /// <summary>
+    /// Used to set the Oscillator id of a Synthesizer.
+    /// </summary>
+    /// <param name="synthesizerId"></param>
+    /// <param name="oscillatorId"></param>
+    void SetOscillatorId(SynthesizerId synthesizerId, OscillatorId? oscillatorId);
 }
