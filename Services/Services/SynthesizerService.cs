@@ -25,7 +25,8 @@ public class SynthesizerService : ISynthesizerService
         {
             DisplayName = request.DisplayName,
             SampleRate = request.SampleRate,
-            MasterVolume = request.MasterVolume
+            MasterVolume = request.MasterVolume,
+            OscillatorId = request.OscillatorId
         };
 
         _store.SetSynthesizer(synthesizerId, synthesizerInformation);
@@ -36,6 +37,16 @@ public class SynthesizerService : ISynthesizerService
     public SynthesizerInformation? GetSynthesizer(SynthesizerId id)
     {
         return _store.GetSynthesizer(id);
+    }
+
+    private SynthesizerInformation GetRequiredSynthesizer(SynthesizerId synthesizerId, string parameterName)
+    {
+        var synthesizer = GetSynthesizer(synthesizerId);
+
+        if (synthesizer == null)
+            throw new ArgumentException($"Could not find synthesizer with id '{synthesizerId}'.", parameterName);
+
+        return synthesizer;
     }
 
     public SynthesizerInformation[] ListSynthesizers()
@@ -53,15 +64,23 @@ public class SynthesizerService : ISynthesizerService
         throw new NotImplementedException();
     }
 
+    public void SetOscillatorId(SynthesizerId synthesizerId, OscillatorId? oscillatorId)
+    {
+        var currentSynthesizer = GetRequiredSynthesizer(synthesizerId, nameof(synthesizerId));
+
+        var updatedSynthesizer = currentSynthesizer with
+        {
+            OscillatorId = oscillatorId
+        };
+
+        _store.SetSynthesizer(synthesizerId, updatedSynthesizer);
+    }
+
     public void UpdateSynthesizer(UpdateSynthesizerRequest request)
     {
         request.ThrowModelErrors(nameof(request));
 
-        var currentSynthesizer = GetSynthesizer(request.SynthesizerId);
-
-        if (currentSynthesizer == null)
-            throw new ArgumentException($"Could not find synthesizer with id '{request.SynthesizerId}'.",
-                nameof(request.SynthesizerId));
+        var currentSynthesizer = GetRequiredSynthesizer(request.SynthesizerId, nameof(request.SynthesizerId));
 
         var updatedSynthesizer = currentSynthesizer with
         {

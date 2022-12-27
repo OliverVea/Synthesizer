@@ -47,7 +47,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     # region UpdateSynthesizer
 
     [Test]
-    public void UpdateSynthesizer_WithNoChanges_UpdatesStoredEntity()
+    public void UpdateSynthesizer_WithNoChanges_UpdatesStoredSynthesizer()
     {
         // Arrange
         var id = new SynthesizerId();
@@ -80,7 +80,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     }
 
     [TestCaseSource(nameof(Amplitudes))]
-    public void UpdateSynthesizer_NewMasterVolume_UpdatesStoredEntity(double masterVolume)
+    public void UpdateSynthesizer_NewMasterVolume_UpdatesStoredSynthesizer(double masterVolume)
     {
         // Arrange
         var tolerance = DefaultDoubleTolerance();
@@ -120,7 +120,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     }
 
     [Test]
-    public void UpdateSynthesizer_NewDisplayName_UpdatesStoredEntity()
+    public void UpdateSynthesizer_NewDisplayName_UpdatesStoredSynthesizer()
     {
         // Arrange
         var id = new SynthesizerId();
@@ -137,6 +137,25 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(id,
                 It.Is<SynthesizerInformation>(y => y.DisplayName == displayName)),
+            Times.Once());
+    }
+
+    [Test]
+    public void UpdateOscillatorId_NewOscillatorId_UpdatesStoredSynthesizer()
+    {
+        // Arrange
+        var id = new SynthesizerId();
+        var oscillatorId = new OscillatorId();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizerInformation);
+
+        // Act
+        _sut.SetOscillatorId(id, oscillatorId);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(id,
+                It.Is<SynthesizerInformation>(y => y.OscillatorId == oscillatorId)),
             Times.Once());
     }
 
@@ -341,6 +360,23 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         _mockedStore.Verify(x => x.SetSynthesizer(
             It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.DisplayName == displayName)));
+    }
+
+    [Test]
+    public void CreateSynthesizer_WithOscillatorId_OscillatorIdIsStored()
+    {
+        // Arrange
+        var oscillatorId = new OscillatorId();
+        var request = DataBuilder.CreateSynthesizerRequest()
+            .With(x => x.OscillatorId, oscillatorId).Create();
+
+        // Act
+        _sut.CreateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(
+            It.IsAny<SynthesizerId>(),
+            It.Is<SynthesizerInformation>(y => y.OscillatorId == oscillatorId)));
     }
 
     #endregion
