@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Services;
+using Synthesizer.Services.Services;
 using Synthesizer.Stores.Memory;
 
 namespace Synthesizer.ServiceRegistration;

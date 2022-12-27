@@ -2,7 +2,7 @@
 using Synthesizer.Abstractions.Models;
 using Synthesizer.Services.Helpers;
 
-namespace Synthesizer.Services;
+namespace Synthesizer.Services.Services;
 
 public class SynthesizerService : ISynthesizerService
 {

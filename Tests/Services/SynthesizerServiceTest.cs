@@ -2,7 +2,7 @@
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
-using Synthesizer.Services;
+using Synthesizer.Services.Services;
 
 namespace Tests.Services;
 
@@ -45,7 +45,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     };
 
     private Mock<ISynthesizerStore> _mockedStore = null!;
-    private SynthesizerService _sut = null!;
+    private ISynthesizerService _sut = null!;
 
     private static double MasterVolumeTolerance(double masterVolume = 0)
     {
