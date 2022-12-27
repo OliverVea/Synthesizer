@@ -5,11 +5,23 @@
 /// </summary>
 public record SynthesizerId
 {
-    private string _id;
+    private readonly string _id;
 
     private SynthesizerId(Guid guid)
     {
         _id = guid.ToString();
+    }
+
+    /// <inheritdoc />
+    public virtual bool Equals(SynthesizerId? other)
+    {
+        return _id == other?._id;
+    }
+
+    /// <inheritdoc />
+    public override int GetHashCode()
+    {
+        return _id.GetHashCode();
     }
 
     /// <summary>
