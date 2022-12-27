@@ -69,7 +69,7 @@ Project management to keep track of goals and tasks. I find it important to have
 
 ### Project structure
 
-![Project stucture illustration](ProjectStructure.svg)
+![Project stucture illustration](ProjectStructure.svg?sanitize=true)
 
 ### Not decided
 
