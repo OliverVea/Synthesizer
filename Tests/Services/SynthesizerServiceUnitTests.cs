@@ -58,6 +58,62 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         Assert.NotNull(_sut);
     }
 
+    # region ListSynthesizers
+
+    [Test]
+    public void ListSynthesizers_WithNoSynthesizers_EmptyListIsReturned()
+    {
+        // Arrange
+
+        // Act
+        var actual = _sut.ListSynthesizers();
+
+        // Assert
+        Assert.IsEmpty(actual);
+    }
+
+    [Test]
+    public void ListSynthesizers_WithOneSynthesizer_IsListed()
+    {
+        // Arrange
+        var synthesizers = new[]
+        {
+            DataBuilder.SynthesizerInformation().Create()
+        };
+
+        _mockedStore.Setup(x => x.ListSynthesizers()).Returns(synthesizers);
+
+        // Act
+        var actual = _sut.ListSynthesizers();
+
+        // Assert
+        CollectionAssert.AreEqual(synthesizers, actual);
+    }
+
+    [Test]
+    public void ListSynthesizers_WithMultipleSynthesizer_AreListed()
+    {
+        // Arrange
+        var synthesizers = new[]
+        {
+            DataBuilder.SynthesizerInformation().Create(),
+            DataBuilder.SynthesizerInformation().Create(),
+            DataBuilder.SynthesizerInformation().Create(),
+            DataBuilder.SynthesizerInformation().Create(),
+            DataBuilder.SynthesizerInformation().Create()
+        };
+
+        _mockedStore.Setup(x => x.ListSynthesizers()).Returns(synthesizers);
+
+        // Act
+        var actual = _sut.ListSynthesizers();
+
+        // Assert
+        CollectionAssert.AreEqual(synthesizers, actual);
+    }
+
+    # endregion
+
     #region GetSynthesizer
 
     [Test]

@@ -46,4 +46,9 @@ public class SynthesizerService : ISynthesizerService
     {
         return _store.GetSynthesizer(id);
     }
+
+    public SynthesizerInformation[] ListSynthesizers()
+    {
+        return _store.ListSynthesizers();
+    }
 }
