@@ -17,6 +17,7 @@ Project management to keep track of goals and tasks. I find it important to have
     * [x] ~~Getting synthesizer~~
     * [x] ~~Listing synthesizers~~
     * [x] ~~Deleting synthesizer~~
+    * [x] ~~Updating synthesizer~~
 * [ ] Oscillator CRUD
 * [ ] Generating audio samples
 * [ ] Envelope CRUD
