@@ -15,6 +15,7 @@ public record CreateSynthesizerRequest
     /// <summary>
     ///     Sample rate of the synthesizer.
     /// </summary>
+    [Range(1, int.MaxValue)]
     public int SampleRate { get; init; } = 44100;
 
     /// <summary>

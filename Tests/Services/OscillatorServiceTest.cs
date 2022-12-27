@@ -90,11 +90,10 @@ public class OscillatorServiceTest : BaseUnitTest
             It.Is<OscillatorInformation>(y => Math.Abs(y.Frequency - frequency) < tolerance)), Times.Once);
     }
 
-    [Test]
-    public void CreateOscillator_WithZeroFrequency_ThrowsArgumentException()
+    [TestCaseSource(nameof(InvalidFrequencies))]
+    public void CreateOscillator_WithInvalidFrequency_ThrowsArgumentException(double invalidFrequency)
     {
         // Arrange
-        const double invalidFrequency = 0.0;
         var request = DataBuilder.CreateOscillatorRequest()
             .With(x => x.Frequency, invalidFrequency).Create();
 
@@ -121,6 +120,21 @@ public class OscillatorServiceTest : BaseUnitTest
         _mockedStore.Verify(x => x.SetOscillator(
             It.IsAny<OscillatorId>(),
             It.Is<OscillatorInformation>(y => Math.Abs(y.Amplitude - amplitude) < tolerance)), Times.Once);
+    }
+
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void CreateOscillator_WithInvalidAmplitude_ThrowsArgumentException(double invalidAmplitude)
+    {
+        // Arrange
+        var request = DataBuilder.CreateOscillatorRequest()
+            .With(x => x.Amplitude, invalidAmplitude).Create();
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.CreateOscillator(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.Amplitude)));
     }
 
     # endregion
