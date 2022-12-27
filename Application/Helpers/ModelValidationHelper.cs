@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Synthesizer.Services.Helpers;
+namespace Synthesizer.Application.Helpers;
 
 public static class ModelValidationHelper
 {

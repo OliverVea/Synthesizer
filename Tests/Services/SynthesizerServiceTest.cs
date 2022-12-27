@@ -3,7 +3,7 @@ using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Synthesizers;
-using Synthesizer.Services.Services;
+using Synthesizer.Application.Services;
 using Tests.DataBuilders;
 
 namespace Tests.Services;

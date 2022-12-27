@@ -1,9 +1,9 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Services.Helpers;
+using Synthesizer.Application.Helpers;
 
-namespace Synthesizer.Services.Services;
+namespace Synthesizer.Application.Services;
 
 public class OscillatorService : IOscillatorService
 {

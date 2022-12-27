@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Services.Helpers.WaveformGenerators;
+﻿namespace Synthesizer.Application.Helpers.WaveformGenerators;
 
 public interface IWaveformGenerator
 {

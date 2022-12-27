@@ -1,7 +1,7 @@
 ﻿using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Services.Helpers.WaveformGenerators;
+using Synthesizer.Application.Helpers.WaveformGenerators;
 
-namespace Synthesizer.Services.Helpers;
+namespace Synthesizer.Application.Helpers;
 
 public class WaveformHelper : IWaveformHelper
 {

@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Services.Helpers.WaveformGenerators;
+﻿namespace Synthesizer.Application.Helpers.WaveformGenerators;
 
 public class SawtoothGenerator : IWaveformGenerator
 {
@@ -10,7 +10,7 @@ public class SawtoothGenerator : IWaveformGenerator
         double frequency,
         double offset)
     {
-        double wavePeriod = 1 / frequency;
+        var wavePeriod = 1 / frequency;
         var phase = offset % wavePeriod;
 
         for (var i = 0; i < sampleCount; i++)
