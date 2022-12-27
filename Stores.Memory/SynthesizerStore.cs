@@ -1,5 +1,6 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
 
 namespace Synthesizer.Stores.Memory;
 

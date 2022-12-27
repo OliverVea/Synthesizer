@@ -1,8 +1,15 @@
-﻿namespace Synthesizer.Abstractions.Interfaces;
+﻿using Synthesizer.Abstractions.Models;
+
+namespace Synthesizer.Abstractions.Interfaces;
 
 /// <summary>
 ///     Used to manage and use Oscillators.
 /// </summary>
-public class IOscillatorService
+public interface IOscillatorService
 {
+    /// <summary>
+    ///     Gets an Oscillator from the provided id.
+    /// </summary>
+    /// <param name="id">The Oscillator id</param>
+    void GetOscillator(OscillatorId id);
 }

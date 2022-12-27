@@ -2,12 +2,15 @@
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;
 
 public class SynthesizerServiceUnitTests : BaseUnitTest
 {
+    # region TestData
+
     private static readonly object[] Waveforms =
     {
         Waveform.None,
@@ -44,6 +47,8 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         1.0
     };
 
+    # endregion
+
     private Mock<ISynthesizerStore> _mockedStore = null!;
     private ISynthesizerService _sut = null!;
 
@@ -72,7 +77,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void DeleteSynthesizer_WithSynthesizerId_UnderlyingMethodIsCalled()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
 
         // Act
         _sut.DeleteSynthesizer(id);
@@ -89,7 +94,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void UpdateSynthesizer_WithNoChanges_UpdatesStoredEntity()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var request = DataBuilder.UpdateSynthesizerRequest(id).Create();
 
         var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
@@ -106,7 +111,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void UpdateSynthesizer_WithInvalidId_ThrowsArgumentException()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var request = DataBuilder.UpdateSynthesizerRequest(id).Create();
 
         _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns((SynthesizerInformation?)null);
@@ -123,7 +128,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     {
         // Arrange
         var tolerance = MasterVolumeTolerance();
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var masterVolume = 0.5;
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.MasterVolume, masterVolume).Create();
@@ -144,7 +149,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void UpdateSynthesizer_WithInvalidMasterVolume_ThrowsValidationError()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var invalidMasterVolume = -1.0;
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.MasterVolume, invalidMasterVolume).Create();
@@ -164,7 +169,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void UpdateSynthesizer_NewDisplayName_UpdatesStoredEntity()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var displayName = "New Display Name";
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.DisplayName, displayName).Create();
@@ -245,7 +250,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void GetSynthesizer_NoSynthesizers_NoneAreReturned()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
 
         // Act
         var actual = _sut.GetSynthesizer(id);
@@ -258,7 +263,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void GetSynthesizer_ExistingSynthesizer_IsReturned()
     {
         // Arrange
-        var id = SynthesizerId.NewId();
+        var id = new SynthesizerId();
         var synthesizer = DataBuilder.SynthesizerInformation().Create();
 
         _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizer);

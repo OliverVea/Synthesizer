@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Synthesizer.Abstractions.Interfaces;
+using Synthesizer.Abstractions.Models;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;
@@ -24,6 +25,19 @@ public class OscillatorServiceTest
     }
 
     # region GetOscillator
+
+    [Test]
+    public void GetOscillator_WithAnyInput_CallsUnderlyingMethod()
+    {
+        // Arrange
+        var id = new OscillatorId();
+
+        // Act
+        _sut.GetOscillator(id);
+
+        // Assert
+        _mockedStore.Verify(x => x.GetOscillator(id), Times.Once);
+    }
 
     # endregion
 

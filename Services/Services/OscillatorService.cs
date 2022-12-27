@@ -1,4 +1,5 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
+using Synthesizer.Abstractions.Models;
 
 namespace Synthesizer.Services.Services;
 
@@ -9,5 +10,10 @@ public class OscillatorService : IOscillatorService
     public OscillatorService(IOscillatorStore store)
     {
         _store = store;
+    }
+
+    public void GetOscillator(OscillatorId id)
+    {
+        _store.GetOscillator(id);
     }
 }

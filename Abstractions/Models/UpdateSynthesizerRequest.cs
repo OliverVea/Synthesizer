@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Synthesizer.Abstractions.Models.Ids;
 
 namespace Synthesizer.Abstractions.Models;
 

@@ -1,5 +1,6 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Services.Helpers;
 
 namespace Synthesizer.Services.Services;
@@ -17,7 +18,7 @@ public class SynthesizerService : ISynthesizerService
     {
         request.ThrowModelErrors(nameof(request));
 
-        var synthesizerId = SynthesizerId.NewId();
+        var synthesizerId = new SynthesizerId();
 
         var synthesizerInformation = new SynthesizerInformation
         {
