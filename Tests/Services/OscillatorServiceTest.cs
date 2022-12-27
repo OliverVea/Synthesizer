@@ -1,7 +1,8 @@
 ﻿using AutoFixture;
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Oscillators;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;
@@ -24,6 +25,25 @@ public class OscillatorServiceTest : BaseUnitTest
         // Assert
         Assert.IsNotNull(_sut);
     }
+
+    # region CreateOscillator
+
+    [Test]
+    public void CreateOscillator_DefaultOscillator_CallsUnderlyingMethod()
+    {
+        // Arrange
+        var request = DataBuilder.CreateOscillatorRequest().Create();
+
+        // Act
+        _sut.CreateOscillator(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetOscillator(
+            It.IsAny<OscillatorId>(),
+            It.IsAny<OscillatorInformation>()), Times.Once);
+    }
+
+    # endregion
 
     # region ListOscillators
 
@@ -107,10 +127,6 @@ public class OscillatorServiceTest : BaseUnitTest
         // Assert
         Assert.That(actual, Is.EqualTo(oscillatorInformation));
     }
-
-    # endregion
-
-    # region CreateOscillator
 
     # endregion
 

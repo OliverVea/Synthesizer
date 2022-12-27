@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Abstractions.Models;
+﻿namespace Synthesizer.Abstractions.Models.Oscillators;
 
 /// <summary>
 ///     Contains information about the configuration of an Oscillator.

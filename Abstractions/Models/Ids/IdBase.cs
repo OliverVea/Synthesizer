@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Abstractions.Models;
+﻿namespace Synthesizer.Abstractions.Models.Ids;
 
 /// <summary>
 ///     Base for id classes.

@@ -1,8 +1,9 @@
 ﻿using AutoFixture;
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models;
 using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Oscillators;
+using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;

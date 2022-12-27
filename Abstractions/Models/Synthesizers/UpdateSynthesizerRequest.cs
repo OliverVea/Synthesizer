@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Synthesizer.Abstractions.Models.Ids;
 
-namespace Synthesizer.Abstractions.Models;
+namespace Synthesizer.Abstractions.Models.Synthesizers;
 
 /// <summary>
 ///     Used to update the configuration of a Synthesizer.

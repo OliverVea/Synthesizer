@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Synthesizer.Abstractions.Models.Oscillators;
 
-namespace Synthesizer.Abstractions.Models;
+namespace Synthesizer.Abstractions.Models.Synthesizers;
 
 /// <summary>
-///     Contains information about a Synthesizer configuration.
+///     Request used to create a new synthesizer.
 /// </summary>
-public record SynthesizerInformation
+public record CreateSynthesizerRequest
 {
     /// <summary>
     ///     Human-readable display name of the synthesizer.
@@ -25,7 +26,6 @@ public record SynthesizerInformation
     /// <summary>
     ///     Master volume of the synthesizer.
     /// </summary>
-
     [Range(0, 1.0)]
     public double MasterVolume { get; init; } = 1.0;
 }

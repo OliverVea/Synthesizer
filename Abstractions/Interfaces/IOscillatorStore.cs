@@ -1,4 +1,5 @@
-﻿using Synthesizer.Abstractions.Models;
+﻿using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Oscillators;
 
 namespace Synthesizer.Abstractions.Interfaces;
 
@@ -18,4 +19,11 @@ public interface IOscillatorStore
     /// </summary>
     /// <returns></returns>
     OscillatorInformation[] ListOscillators();
+
+    /// <summary>
+    ///     Sets the Oscillator with the provided id to be equal to the configuration.
+    /// </summary>
+    /// <param name="id">Id of the Oscillator</param>
+    /// <param name="oscillatorInformation">Configuration of the Oscillator</param>
+    void SetOscillator(OscillatorId id, OscillatorInformation oscillatorInformation);
 }

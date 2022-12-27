@@ -1,4 +1,5 @@
-﻿using Synthesizer.Abstractions.Models;
+﻿using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Oscillators;
 
 namespace Synthesizer.Abstractions.Interfaces;
 
@@ -18,4 +19,10 @@ public interface IOscillatorService
     /// </summary>
     /// <returns></returns>
     OscillatorInformation[] ListOscillators();
+
+    /// <summary>
+    ///     Creates a new Oscillator with the provided configuration.
+    /// </summary>
+    /// <param name="request">The configuration of the new oscillator.</param>
+    void CreateOscillator(CreateOscillatorRequest request);
 }

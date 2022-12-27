@@ -1,5 +1,5 @@
-﻿using Synthesizer.Abstractions.Models;
-using Synthesizer.Abstractions.Models.Ids;
+﻿using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Synthesizers;
 
 namespace Synthesizer.Abstractions.Interfaces;
 

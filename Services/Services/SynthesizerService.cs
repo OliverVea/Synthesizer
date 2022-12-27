@@ -1,6 +1,7 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
 using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Services.Helpers;
 
 namespace Synthesizer.Services.Services;
