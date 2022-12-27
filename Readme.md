@@ -63,6 +63,10 @@ Project management to keep track of goals and tasks. I find it important to have
 * It must be possible to stream the audio to an output audio device in windows.
 * Synthesizer configuration should be stored persistently.
 
+### Project structure
+
+![Project stucture illustration](ProjectStructure.svg)
+
 ### Not decided
 
 * Method of IO - everything is services, could be web-based, GUI, etc.
