@@ -11,16 +11,16 @@ public record UpdateSynthesizerRequest(SynthesizerId SynthesizerId)
     /// <summary>
     ///     The id of the synthesizer to update.
     /// </summary>
-    public SynthesizerId SynthesizerId { get; set; } = SynthesizerId;
+    public SynthesizerId SynthesizerId { get; init; } = SynthesizerId;
 
     /// <summary>
     ///     Set to update the human-readable display name of the synthesizer.
     /// </summary>
-    public string? DisplayName { get; set; }
+    public string? DisplayName { get; init; }
 
     /// <summary>
     ///     Set to update the master volume of the synthesizer.
     /// </summary>
     [Range(0.0, 1.0)]
-    public double? MasterVolume { get; set; }
+    public double? MasterVolume { get; init; }
 }
