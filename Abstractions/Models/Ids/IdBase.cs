@@ -13,8 +13,17 @@ public abstract record IdBase
     /// <summary>
     ///     Creates a new random id.
     /// </summary>
-    public IdBase()
+    protected IdBase()
     {
         Id = Guid.NewGuid().ToString();
+    }
+
+    /// <summary>
+    ///     Creates IdBase object from existing id string.
+    /// </summary>
+    /// <param name="id"></param>
+    protected IdBase(string id)
+    {
+        Id = id;
     }
 }
