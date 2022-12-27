@@ -10,6 +10,11 @@ internal partial class DataBuilder
         return Fixture.Build<CreateSynthesizerRequest>();
     }
 
+    public IPostprocessComposer<UpdateSynthesizerRequest> UpdateSynthesizerRequest(SynthesizerId id)
+    {
+        return Fixture.Build<UpdateSynthesizerRequest>().With(x => x.SynthesizerId, id);
+    }
+
     public IPostprocessComposer<SynthesizerInformation> SynthesizerInformation()
     {
         return Fixture.Build<SynthesizerInformation>();

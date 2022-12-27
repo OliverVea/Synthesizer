@@ -25,6 +25,6 @@ public record CreateSynthesizerRequest
     /// <summary>
     ///     Master volume of the synthesizer.
     /// </summary>
-    [Range(0, 1.0, ErrorMessage = "Volume should be between 0 and 1.")]
+    [Range(0, 1.0)]
     public double MasterVolume { get; init; } = 1.0;
 }

@@ -34,6 +34,12 @@ public interface ISynthesizerService
     void DeleteSynthesizer(SynthesizerId id);
 
     /// <summary>
+    ///     Updates a synthesizer based on the provided data.
+    /// </summary>
+    /// <param name="request"></param>
+    void UpdateSynthesizer(UpdateSynthesizerRequest request);
+
+    /// <summary>
     ///     Synthesizes audio samples from the synthesizer.
     /// </summary>
     /// <param name="id">Id of the synthesizer to generate samples from.</param>

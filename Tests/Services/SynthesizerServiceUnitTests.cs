@@ -19,6 +19,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
     private static readonly int[] SampleRates =
     {
+        // ReSharper disable CommentTypo
         8000, // Adequate for human speech but without sibilance. Used in telephone/walkie-talkie.
         11025, // Used for lower-quality PCM, MPEG audio and for audio analysis of subwoofer bandpasses.
         16000, // Used in most VoIP and VVoIP, extension of telephone narrowband.
@@ -31,6 +32,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         192000, // Used with audio on professional video equipment. DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
         352800, // Digital eXtreme Definition. Used for recording and editing Super Audio CDs.
         374000 // Highest sample rate available for common software. Allows for precise peak detection.
+        // ReSharper enable CommentTypo
     };
 
     private static readonly double[] MasterVolumes =
@@ -44,6 +46,11 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
     private Mock<ISynthesizerStore> _mockedStore = null!;
     private SynthesizerService _sut = null!;
+
+    private static double MasterVolumeTolerance(double masterVolume = 0)
+    {
+        return double.Max(masterVolume * 1e-9, 1e-12);
+    }
 
     [SetUp]
     public void SetupMocks()
@@ -72,6 +79,106 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
         // Assert
         _mockedStore.Verify(x => x.DeleteSynthesizer(id), Times.Once);
+    }
+
+    # endregion
+
+    # region UpdateSynthesizer
+
+    [Test]
+    public void UpdateSynthesizer_WithNoChanges_UpdatesStoredEntity()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+        var request = DataBuilder.UpdateSynthesizerRequest(id).Create();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizerInformation);
+
+        // Act
+        _sut.UpdateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(id, It.IsAny<SynthesizerInformation>()), Times.Once());
+    }
+
+    [Test]
+    public void UpdateSynthesizer_WithInvalidId_ThrowsArgumentException()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+        var request = DataBuilder.UpdateSynthesizerRequest(id).Create();
+
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns((SynthesizerInformation?)null);
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateSynthesizer(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request.SynthesizerId)));
+    }
+
+    [Test]
+    public void UpdateSynthesizer_NewMasterVolume_UpdatesStoredEntity()
+    {
+        // Arrange
+        var tolerance = MasterVolumeTolerance();
+        var id = SynthesizerId.NewId();
+        var masterVolume = 0.5;
+        var request = DataBuilder.UpdateSynthesizerRequest(id)
+            .With(x => x.MasterVolume, masterVolume).Create();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizerInformation);
+
+        // Act
+        _sut.UpdateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(id,
+                It.Is<SynthesizerInformation>(y => Math.Abs(y.MasterVolume - masterVolume) < tolerance)),
+            Times.Once());
+    }
+
+    [Test]
+    public void UpdateSynthesizer_WithInvalidMasterVolume_ThrowsValidationError()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+        var invalidMasterVolume = -1.0;
+        var request = DataBuilder.UpdateSynthesizerRequest(id)
+            .With(x => x.MasterVolume, invalidMasterVolume).Create();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizerInformation);
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateSynthesizer(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.MasterVolume)));
+    }
+
+    [Test]
+    public void UpdateSynthesizer_NewDisplayName_UpdatesStoredEntity()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+        var displayName = "New Display Name";
+        var request = DataBuilder.UpdateSynthesizerRequest(id)
+            .With(x => x.DisplayName, displayName).Create();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizerInformation);
+
+        // Act
+        _sut.UpdateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(id,
+                It.Is<SynthesizerInformation>(y => y.DisplayName == displayName)),
+            Times.Once());
     }
 
     # endregion
@@ -233,7 +340,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     public void CreateSynthesizer_WithMasterVolume_MasterVolumeIsStored(double masterVolume)
     {
         // Arrange
-        var tolerance = double.Max(masterVolume * 1e-9, 1e-12);
+        var tolerance = MasterVolumeTolerance(masterVolume);
         var request = DataBuilder.CreateSynthesizerRequest()
             .With(x => x.MasterVolume, masterVolume).Create();
 
@@ -247,15 +354,19 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     }
 
     [Test]
-    public void CreateSynthesizer_WithNegativeMasterVolume_ShouldThrowValidationError()
+    public void CreateSynthesizer_WithNegativeMasterVolume_ThrowsValidationError()
     {
         // Arrange
         var masterVolume = -1.0;
         var request = DataBuilder.CreateSynthesizerRequest()
             .With(x => x.MasterVolume, masterVolume).Create();
 
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.MasterVolume)));
     }
 
     [Test]

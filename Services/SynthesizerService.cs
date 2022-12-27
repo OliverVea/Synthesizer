@@ -56,4 +56,28 @@ public class SynthesizerService : ISynthesizerService
     {
         throw new NotImplementedException();
     }
+
+    public void UpdateSynthesizer(UpdateSynthesizerRequest request)
+    {
+        var validationErrors = request.Validate();
+        if (validationErrors.Any())
+        {
+            var errors = string.Join('\n', validationErrors);
+            throw new ArgumentException($"Parameter had following errors:\n{errors}", nameof(request));
+        }
+
+        var currentSynthesizer = GetSynthesizer(request.SynthesizerId);
+
+        if (currentSynthesizer == null)
+            throw new ArgumentException($"Could not find synthesizer with id '{request.SynthesizerId}'.",
+                nameof(request.SynthesizerId));
+
+        var updatedSynthesizer = currentSynthesizer with
+        {
+            MasterVolume = request.MasterVolume ?? currentSynthesizer.MasterVolume,
+            DisplayName = request.DisplayName ?? currentSynthesizer.DisplayName
+        };
+
+        _store.SetSynthesizer(request.SynthesizerId, updatedSynthesizer);
+    }
 }
