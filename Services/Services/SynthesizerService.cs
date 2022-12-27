@@ -1,8 +1,10 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Services.Helpers;
 
-namespace Synthesizer.Services;
+namespace Synthesizer.Services.Services;
 
 public class SynthesizerService : ISynthesizerService
 {
@@ -15,18 +17,12 @@ public class SynthesizerService : ISynthesizerService
 
     public SynthesizerId CreateSynthesizer(CreateSynthesizerRequest request)
     {
-        var validationErrors = request.Validate();
-        if (validationErrors.Any())
-        {
-            var errors = string.Join('\n', validationErrors);
-            throw new ArgumentException($"Parameter had following errors:\n{errors}", nameof(request));
-        }
+        request.ThrowModelErrors(nameof(request));
 
-        var synthesizerId = SynthesizerId.NewId();
+        var synthesizerId = new SynthesizerId();
 
         var synthesizerInformation = new SynthesizerInformation
         {
-            Waveform = request.Waveform,
             DisplayName = request.DisplayName,
             SampleRate = request.SampleRate,
             MasterVolume = request.MasterVolume
@@ -59,12 +55,7 @@ public class SynthesizerService : ISynthesizerService
 
     public void UpdateSynthesizer(UpdateSynthesizerRequest request)
     {
-        var validationErrors = request.Validate();
-        if (validationErrors.Any())
-        {
-            var errors = string.Join('\n', validationErrors);
-            throw new ArgumentException($"Parameter had following errors:\n{errors}", nameof(request));
-        }
+        request.ThrowModelErrors(nameof(request));
 
         var currentSynthesizer = GetSynthesizer(request.SynthesizerId);
 

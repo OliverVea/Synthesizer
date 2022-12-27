@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Abstractions.Models;
+﻿namespace Synthesizer.Abstractions.Models.Oscillators;
 
 /// <summary>
 ///     Denotes a specific waveform for use in oscillators.

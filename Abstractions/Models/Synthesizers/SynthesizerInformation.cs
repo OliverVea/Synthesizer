@@ -1,21 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Synthesizer.Abstractions.Models;
+namespace Synthesizer.Abstractions.Models.Synthesizers;
 
 /// <summary>
-///     Request used to create a new synthesizer.
+///     Contains information about a Synthesizer configuration.
 /// </summary>
-public record CreateSynthesizerRequest
+public record SynthesizerInformation
 {
     /// <summary>
     ///     Human-readable display name of the synthesizer.
     /// </summary>
     public string DisplayName { get; init; } = string.Empty;
-
-    /// <summary>
-    ///     Waveform of the synthesizer.
-    /// </summary>
-    public Waveform Waveform { get; init; } = Waveform.None;
 
     /// <summary>
     ///     Sample rate of the synthesizer.
@@ -25,6 +20,7 @@ public record CreateSynthesizerRequest
     /// <summary>
     ///     Master volume of the synthesizer.
     /// </summary>
-    [Range(0, 1.0)]
+
+    [Range(0.0, 1.0)]
     public double MasterVolume { get; init; } = 1.0;
 }

@@ -1,4 +1,6 @@
-﻿namespace Synthesizer.Abstractions.Models;
+﻿using Synthesizer.Abstractions.Models.Ids;
+
+namespace Synthesizer.Abstractions.Models;
 
 /// <summary>
 ///     Contains an audio sample and meta-information about the sample.

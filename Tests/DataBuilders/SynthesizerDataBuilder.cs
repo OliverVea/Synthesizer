@@ -1,5 +1,6 @@
 ﻿using AutoFixture.Dsl;
-using Synthesizer.Abstractions.Models;
+using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Synthesizers;
 
 namespace Tests.DataBuilders;
 
