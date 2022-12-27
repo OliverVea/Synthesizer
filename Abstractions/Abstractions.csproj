@@ -7,4 +7,10 @@
         <RootNamespace>Synthesizer.Abstractions</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Content Include="..\Readme.md">
+        <Link>Readme.md</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>
