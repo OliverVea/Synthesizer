@@ -19,18 +19,27 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
     private static readonly int[] SampleRates =
     {
-        8000,   // Adequate for human speech but without sibilance. Used in telephone/walkie-talkie.
-        11025,  // Used for lower-quality PCM, MPEG audio and for audio analysis of subwoofer bandpasses.
-        16000,  // Used in most VoIP and VVoIP, extension of telephone narrowband.
-        22050,  // Used for lower-quality PCM and MPEG audio and for audio analysis of low frequency energy.
-        44100,  // Audio CD, most commonly used rate with MPEG-1 audio (VCD, SVCD, MP3). Covers the 20 kHz bandwidth.
-        48000,  // Standard sampling rate used by professional digital video equipment, could reconstruct frequencies up to 22 kHz.
-        88200,  // Used by some professional recording equipment when the destination is CD, such as mixers, EQs, compressors, reverb, crossovers and recording devices.
-        96000,  // DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
+        8000, // Adequate for human speech but without sibilance. Used in telephone/walkie-talkie.
+        11025, // Used for lower-quality PCM, MPEG audio and for audio analysis of subwoofer bandpasses.
+        16000, // Used in most VoIP and VVoIP, extension of telephone narrowband.
+        22050, // Used for lower-quality PCM and MPEG audio and for audio analysis of low frequency energy.
+        44100, // Audio CD, most commonly used rate with MPEG-1 audio (VCD, SVCD, MP3). Covers the 20 kHz bandwidth.
+        48000, // Standard sampling rate used by professional digital video equipment, could reconstruct frequencies up to 22 kHz.
+        88200, // Used by some professional recording equipment when the destination is CD, such as mixers, EQs, compressors, reverb, crossovers and recording devices.
+        96000, // DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
         176400, // Used in HDCD recorders and other professional applications for CD production.
         192000, // Used with audio on professional video equipment. DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
         352800, // Digital eXtreme Definition. Used for recording and editing Super Audio CDs.
-        374000  // Highest sample rate available for common software. Allows for precise peak detection.
+        374000 // Highest sample rate available for common software. Allows for precise peak detection.
+    };
+
+    private static readonly double[] MasterVolumes =
+    {
+        0.0,
+        0.001,
+        0.5,
+        0.999,
+        1.0
     };
 
     private readonly Mock<ISynthesizerStore> _mockedStore;
@@ -50,7 +59,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     }
 
     [Test]
-    public void CreateSynthesizer_DefaultSynthesizer_AddsSynthesizerToStore()
+    public void CreateSynthesizer_DefaultSynthesizer_AddsSynthesizerToStoreOnce()
     {
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest().Create();
@@ -61,7 +70,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         // Assert
         _mockedStore.Verify(x => x.SetSynthesizer(
             It.IsAny<SynthesizerId>(),
-            It.IsAny<SynthesizerInformation>()));
+            It.IsAny<SynthesizerInformation>()), Times.Once);
     }
 
     [Test]
@@ -109,5 +118,51 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         _mockedStore.Verify(x => x.SetSynthesizer(
             It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.SampleRate == sampleRate)));
+    }
+
+    [TestCaseSource(nameof(MasterVolumes))]
+    public void CreateSynthesizer_WithMasterVolume_MasterVolumeIsStored(double masterVolume)
+    {
+        // Arrange
+        var tolerance = double.Max(masterVolume * 1e-9, 1e-12);
+        var request = DataBuilder.CreateSynthesizerRequest()
+            .With(x => x.MasterVolume, masterVolume).Create();
+
+        // Act
+        _sut.CreateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(
+            It.IsAny<SynthesizerId>(),
+            It.Is<SynthesizerInformation>(y => Math.Abs(y.MasterVolume - masterVolume) < tolerance)));
+    }
+
+    [Test]
+    public void CreateSynthesizer_WithNegativeMasterVolume_ShouldThrowValidationError()
+    {
+        // Arrange
+        var masterVolume = -1.0;
+        var request = DataBuilder.CreateSynthesizerRequest()
+            .With(x => x.MasterVolume, masterVolume).Create();
+
+        // Act & Assert
+        var actual = Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
+    }
+
+    [Test]
+    public void CreateSynthesizer_WithDisplayName_DisplayNameIsStored()
+    {
+        // Arrange
+        var displayName = "Display Name";
+        var request = DataBuilder.CreateSynthesizerRequest()
+            .With(x => x.DisplayName, displayName).Create();
+
+        // Act
+        _sut.CreateSynthesizer(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetSynthesizer(
+            It.IsAny<SynthesizerId>(),
+            It.Is<SynthesizerInformation>(y => y.DisplayName == displayName)));
     }
 }
