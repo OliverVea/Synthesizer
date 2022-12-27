@@ -27,7 +27,7 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
     # region GetSynthesizerConfiguration
 
     [Test]
-    public void GetSynthesizerConfiguration_WithSynthesizerId_GetsSynthesizerIdFromService()
+    public void GetSynthesizerConfiguration_WithSynthesizerId_GetsRequiredSynthesizerFromService()
     {
         // Arrange
         var synthesizerId = new SynthesizerId();
@@ -36,7 +36,7 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
         _sut.GetSynthesizerConfiguration(synthesizerId);
 
         // Assert
-        _mockedSynthesizerService.Verify(x => x.GetSynthesizer(synthesizerId), Times.Once);
+        _mockedSynthesizerService.Verify(x => x.GetRequiredSynthesizer(synthesizerId), Times.Once);
     }
 
     # endregion

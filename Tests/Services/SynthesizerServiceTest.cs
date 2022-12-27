@@ -250,6 +250,39 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
     #endregion
 
+    # region GetRequiredSynthesizer
+
+    [Test]
+    public void GetRequiredSynthesizer_WithInvalidSynthesizerId_ThrowsArgumentException()
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.GetRequiredSynthesizer(synthesizerId));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(synthesizerId)));
+    }
+
+    [Test]
+    public void GetRequiredSynthesizer_WithValidSynthesizerId_ReturnsSynthesizer()
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        _mockedStore.Setup(x => x.GetSynthesizer(synthesizerId)).Returns(synthesizerInformation);
+
+        // Act
+        var actual = _sut.GetRequiredSynthesizer(synthesizerId);
+
+        // Assert
+        Assert.That(actual, Is.EqualTo(synthesizerInformation));
+    }
+
+    # endregion
+
     #region CreateSynthesizer
 
     [Test]

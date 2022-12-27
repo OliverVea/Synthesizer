@@ -14,6 +14,6 @@ public class SynthesizerConfigurationService : ISynthesizerConfigurationService
 
     public void GetSynthesizerConfiguration(SynthesizerId synthesizerId)
     {
-        _synthesizerService.GetSynthesizer(synthesizerId);
+        _synthesizerService.GetRequiredSynthesizer(synthesizerId);
     }
 }
