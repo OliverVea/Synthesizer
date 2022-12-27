@@ -25,10 +25,62 @@ public class OscillatorServiceTest : BaseUnitTest
         Assert.IsNotNull(_sut);
     }
 
+    # region ListOscillators
+
+    [Test]
+    public void ListOscillators__GetsOscillatorsFromStore()
+    {
+        // Arrange
+
+        // Act
+        _sut.ListOscillators();
+
+        // Assert
+        _mockedStore.Verify(x => x.ListOscillators(), Times.Once);
+    }
+
+    [Test]
+    public void ListOscillators_WithNoOscillators_ReturnsOscillatorsFromStore()
+    {
+        // Arrange
+        var oscillators = Array.Empty<OscillatorInformation>();
+
+        _mockedStore.Setup(x => x.ListOscillators()).Returns(oscillators);
+
+        // Act
+        var actual = _sut.ListOscillators();
+
+        // Assert
+        CollectionAssert.AreEqual(oscillators, actual);
+    }
+
+    [Test]
+    public void ListOscillators_WithManyOscillators_ReturnsOscillatorsFromStore()
+    {
+        // Arrange
+        var oscillators = new[]
+        {
+            DataBuilder.OscillatorInformation().Create(),
+            DataBuilder.OscillatorInformation().Create(),
+            DataBuilder.OscillatorInformation().Create(),
+            DataBuilder.OscillatorInformation().Create()
+        };
+
+        _mockedStore.Setup(x => x.ListOscillators()).Returns(oscillators);
+
+        // Act
+        var actual = _sut.ListOscillators();
+
+        // Assert
+        CollectionAssert.AreEqual(oscillators, actual);
+    }
+
+    # endregion
+
     # region GetOscillator
 
     [Test]
-    public void GetOscillator_WithAnyInput_CallsUnderlyingMethod()
+    public void GetOscillator__GetsOscillatorFromStore()
     {
         // Arrange
         var id = new OscillatorId();
@@ -41,7 +93,7 @@ public class OscillatorServiceTest : BaseUnitTest
     }
 
     [Test]
-    public void GetOscillator_WithAnyInput_StoredValueIsReturned()
+    public void GetOscillator__StoredValueIsReturned()
     {
         // Arrange
         var id = new OscillatorId();
@@ -55,10 +107,6 @@ public class OscillatorServiceTest : BaseUnitTest
         // Assert
         Assert.That(actual, Is.EqualTo(oscillatorInformation));
     }
-
-    # endregion
-
-    # region ListOscillators
 
     # endregion
 

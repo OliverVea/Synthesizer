@@ -12,4 +12,10 @@ public interface IOscillatorStore
     /// </summary>
     /// <param name="id">The Oscillator id</param>
     OscillatorInformation GetOscillator(OscillatorId id);
+
+    /// <summary>
+    ///     Lists all available oscillators.
+    /// </summary>
+    /// <returns></returns>
+    OscillatorInformation[] ListOscillators();
 }
