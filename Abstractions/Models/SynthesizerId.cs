@@ -10,7 +10,7 @@ public record SynthesizerId
     private SynthesizerId(Guid guid)
     {
         _id = guid.ToString();
-    } 
+    }
 
     /// <inheritdoc />
     public virtual bool Equals(SynthesizerId? other)
