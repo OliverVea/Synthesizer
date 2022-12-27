@@ -15,17 +15,29 @@ public interface ISynthesizerService
     SynthesizerId CreateSynthesizer(CreateSynthesizerRequest request);
 
     /// <summary>
+    ///     Gets the information about a specific synthesizer.
+    /// </summary>
+    /// <param name="id">The synthesizer id</param>
+    /// <returns>The information of the synthesizer. Null if no synthesizer could be found with the provided id.</returns>
+    SynthesizerInformation? GetSynthesizer(SynthesizerId id);
+
+    /// <summary>
+    ///     Lists all available synthesizers.
+    /// </summary>
+    /// <returns></returns>
+    SynthesizerInformation[] ListSynthesizers();
+
+    /// <summary>
+    ///     Deletes the synthesizer with the provided id.
+    /// </summary>
+    /// <param name="id">Id of the synthesizer</param>
+    void DeleteSynthesizer(SynthesizerId id);
+
+    /// <summary>
     ///     Synthesizes audio samples from the synthesizer.
     /// </summary>
     /// <param name="id">Id of the synthesizer to generate samples from.</param>
     /// <param name="sampleCount">Number of samples to generate.</param>
     /// <returns>Object containing audio samples generated from the synthesizer.</returns>
     AudioSample GetNextSamples(SynthesizerId id, int sampleCount);
-
-    /// <summary>
-    ///     Gets the information about a specific synthesizer.
-    /// </summary>
-    /// <param name="id">The synthesizer id</param>
-    /// <returns>The information of the synthesizer. Null if no synthesizer could be found with the provided id.</returns>
-    SynthesizerInformation? GetSynthesizer(SynthesizerId id);
 }
