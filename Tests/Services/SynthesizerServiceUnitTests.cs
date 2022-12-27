@@ -58,6 +58,23 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         Assert.NotNull(_sut);
     }
 
+    # region DeleteSynthesizer
+
+    [Test]
+    public void DeleteSynthesizer_WithSynthesizerId_UnderlyingMethodIsCalled()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+
+        // Act
+        _sut.DeleteSynthesizer(id);
+
+        // Assert
+        _mockedStore.Verify(x => x.DeleteSynthesizer(id), Times.Once);
+    }
+
+    # endregion
+
     # region ListSynthesizers
 
     [Test]

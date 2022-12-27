@@ -51,4 +51,9 @@ public class SynthesizerService : ISynthesizerService
     {
         return _store.ListSynthesizers();
     }
+
+    public void DeleteSynthesizer(SynthesizerId id)
+    {
+        _store.DeleteSynthesizer(id);
+    }
 }
