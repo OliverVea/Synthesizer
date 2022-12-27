@@ -4,6 +4,7 @@ using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Oscillators;
 using Synthesizer.Services.Services;
+using Tests.DataBuilders;
 
 namespace Tests.Services;
 
@@ -226,9 +227,74 @@ public class OscillatorServiceTest : BaseUnitTest
 
     # region DeleteOscillator
 
+    [Test]
+    public void DeleteOscillator__DeletesOscillatorFromStore()
+    {
+        // Arrange
+        var id = new OscillatorId();
+
+        // Act
+        _sut.DeleteOscillator(id);
+
+        // Assert
+        _mockedStore.Verify(x => x.DeleteOscillator(id), Times.Once);
+    }
+
     # endregion
 
     # region UpdateOscillator
+
+    [Test]
+    public void UpdateOscillator_WithNoChanges_UpdatesStoredEntity()
+    {
+        // Arrange
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id).Create();
+
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(oscillatorInformation);
+
+        // Act
+        _sut.UpdateOscillator(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetOscillator(id, It.IsAny<OscillatorInformation>()), Times.Once);
+    }
+
+    [Test]
+    public void UpdateOscillator_WithInvalidId_ThrowsArgumentException()
+    {
+        // Arrange
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns((OscillatorInformation?)null);
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateOscillator(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request.OscillatorId)));
+    }
+
+    [TestCaseSource(nameof(Amplitudes))]
+    public void UpdateOscillator_NewAmplitude_UpdatesStoredOscillator(double amplitude)
+    {
+        // Arrange
+        var tolerance = DefaultDoubleTolerance(amplitude);
+        var id = new OscillatorId();
+        var request = DataBuilder.UpdateOscillatorRequest(id)
+            .With(x => x.Amplitude, amplitude).Create();
+
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(new OscillatorInformation());
+
+        // Act
+        _sut.UpdateOscillator(request);
+
+        // Assert
+        _mockedStore.Verify(x => x.SetOscillator(id,
+            It.Is<OscillatorInformation>(y => Math.Abs(y.Amplitude - amplitude) < tolerance)));
+    }
 
     # endregion
 }

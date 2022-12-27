@@ -12,7 +12,7 @@ public interface IOscillatorStore
     ///     Gets an Oscillator from the provided id.
     /// </summary>
     /// <param name="id">The Oscillator id</param>
-    OscillatorInformation GetOscillator(OscillatorId id);
+    OscillatorInformation? GetOscillator(OscillatorId id);
 
     /// <summary>
     ///     Lists all available oscillators.
@@ -26,4 +26,10 @@ public interface IOscillatorStore
     /// <param name="id">Id of the Oscillator</param>
     /// <param name="oscillatorInformation">Configuration of the Oscillator</param>
     void SetOscillator(OscillatorId id, OscillatorInformation oscillatorInformation);
+
+    /// <summary>
+    /// Deletes the specified Oscillator.
+    /// </summary>
+    /// <param name="id">Id of the Oscillator</param>
+    void DeleteOscillator(OscillatorId id);
 }
