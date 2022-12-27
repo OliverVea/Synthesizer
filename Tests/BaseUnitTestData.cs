@@ -7,6 +7,7 @@ public partial class BaseUnitTest
     protected static readonly Waveform[] Waveforms =
     {
         Waveform.None,
+        Waveform.Constant,
         Waveform.Sawtooth,
         Waveform.Sine,
         Waveform.Square,
