@@ -58,6 +58,41 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         Assert.NotNull(_sut);
     }
 
+    #region GetSynthesizer
+
+    [Test]
+    public void GetSynthesizer_NoSynthesizers_NoneAreReturned()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+
+        // Act
+        var actual = _sut.GetSynthesizer(id);
+
+        // Assert
+        Assert.IsNull(actual);
+    }
+
+    [Test]
+    public void GetSynthesizer_ExistingSynthesizer_IsReturned()
+    {
+        // Arrange
+        var id = SynthesizerId.NewId();
+        var synthesizer = DataBuilder.SynthesizerInformation().Create();
+
+        _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns(synthesizer);
+
+        // Act
+        var actual = _sut.GetSynthesizer(id);
+
+        // Assert
+        Assert.That(synthesizer, Is.EqualTo(actual));
+    }
+
+    #endregion
+
+    #region CreateSynthesizer
+
     [Test]
     public void CreateSynthesizer_DefaultSynthesizer_AddsSynthesizerToStoreOnce()
     {
@@ -146,7 +181,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             .With(x => x.MasterVolume, masterVolume).Create();
 
         // Act & Assert
-        var actual = Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
+        Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
     }
 
     [Test]
@@ -165,4 +200,6 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.DisplayName == displayName)));
     }
+
+    #endregion
 }

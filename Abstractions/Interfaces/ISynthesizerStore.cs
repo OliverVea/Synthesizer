@@ -18,7 +18,7 @@ public interface ISynthesizerStore
     /// </summary>
     /// <param name="id">The synthesizer id</param>
     /// <returns></returns>
-    public SynthesizerInformation GetSynthesizer(SynthesizerId id);
+    public SynthesizerInformation? GetSynthesizer(SynthesizerId id);
 
     /// <summary>
     ///     Creates or updates a Synthesizer with the provided configuration and id.

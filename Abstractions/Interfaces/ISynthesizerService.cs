@@ -21,4 +21,11 @@ public interface ISynthesizerService
     /// <param name="sampleCount">Number of samples to generate.</param>
     /// <returns>Object containing audio samples generated from the synthesizer.</returns>
     AudioSample GetNextSamples(SynthesizerId id, int sampleCount);
+
+    /// <summary>
+    ///     Gets the information about a specific synthesizer.
+    /// </summary>
+    /// <param name="id">The synthesizer id</param>
+    /// <returns>The information of the synthesizer. Null if no synthesizer could be found with the provided id.</returns>
+    SynthesizerInformation? GetSynthesizer(SynthesizerId id);
 }

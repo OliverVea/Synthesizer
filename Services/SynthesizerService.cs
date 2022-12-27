@@ -41,4 +41,9 @@ public class SynthesizerService : ISynthesizerService
     {
         throw new NotImplementedException();
     }
+
+    public SynthesizerInformation? GetSynthesizer(SynthesizerId id)
+    {
+        return _store.GetSynthesizer(id);
+    }
 }
