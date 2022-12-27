@@ -11,5 +11,5 @@ public interface IOscillatorStore
     ///     Gets an Oscillator from the provided id.
     /// </summary>
     /// <param name="id">The Oscillator id</param>
-    void GetOscillator(OscillatorId id);
+    OscillatorInformation GetOscillator(OscillatorId id);
 }

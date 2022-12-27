@@ -1,11 +1,12 @@
-﻿using Moq;
+﻿using AutoFixture;
+using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models;
 using Synthesizer.Services.Services;
 
 namespace Tests.Services;
 
-public class OscillatorServiceTest
+public class OscillatorServiceTest : BaseUnitTest
 {
     private Mock<IOscillatorStore> _mockedStore = null!;
     private IOscillatorService _sut = null!;
@@ -34,6 +35,22 @@ public class OscillatorServiceTest
 
         // Act
         _sut.GetOscillator(id);
+
+        // Assert
+        _mockedStore.Verify(x => x.GetOscillator(id), Times.Once);
+    }
+
+    [Test]
+    public void GetOscillator_WithAnyInput_StoredValueIsReturned()
+    {
+        // Arrange
+        var id = new OscillatorId();
+
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
+        _mockedStore.Setup(x => x.GetOscillator(id)).Returns(oscillatorInformation);
+
+        // Act
+        var actual = _sut.GetOscillator(id);
 
         // Assert
         _mockedStore.Verify(x => x.GetOscillator(id), Times.Once);

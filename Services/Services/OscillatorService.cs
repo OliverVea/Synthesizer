@@ -12,8 +12,8 @@ public class OscillatorService : IOscillatorService
         _store = store;
     }
 
-    public void GetOscillator(OscillatorId id)
+    public OscillatorInformation GetOscillator(OscillatorId id)
     {
-        _store.GetOscillator(id);
+        return _store.GetOscillator(id);
     }
 }
