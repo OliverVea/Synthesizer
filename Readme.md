@@ -20,7 +20,7 @@ Project management to keep track of goals and tasks. I find it important to have
     * [x] ~~Updating synthesizer~~
 * [ ] Oscillators
     * [ ] Create new service for CRUD
-        * [ ] Get
+        * [x] ~~Get~~
         * [ ] List
         * [ ] Create
         * [ ] Delete

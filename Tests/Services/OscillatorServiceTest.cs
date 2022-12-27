@@ -53,7 +53,7 @@ public class OscillatorServiceTest : BaseUnitTest
         var actual = _sut.GetOscillator(id);
 
         // Assert
-        _mockedStore.Verify(x => x.GetOscillator(id), Times.Once);
+        Assert.That(actual, Is.EqualTo(oscillatorInformation));
     }
 
     # endregion
