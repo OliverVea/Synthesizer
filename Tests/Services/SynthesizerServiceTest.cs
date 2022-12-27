@@ -2,7 +2,6 @@
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
-using Synthesizer.Abstractions.Models.Oscillators;
 using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Services.Services;
 
@@ -10,53 +9,8 @@ namespace Tests.Services;
 
 public class SynthesizerServiceUnitTests : BaseUnitTest
 {
-    # region TestData
-
-    private static readonly object[] Waveforms =
-    {
-        Waveform.None,
-        Waveform.Sawtooth,
-        Waveform.Sine,
-        Waveform.Square,
-        Waveform.Triangle
-    };
-
-    private static readonly int[] SampleRates =
-    {
-        // ReSharper disable CommentTypo
-        8000, // Adequate for human speech but without sibilance. Used in telephone/walkie-talkie.
-        11025, // Used for lower-quality PCM, MPEG audio and for audio analysis of subwoofer bandpasses.
-        16000, // Used in most VoIP and VVoIP, extension of telephone narrowband.
-        22050, // Used for lower-quality PCM and MPEG audio and for audio analysis of low frequency energy.
-        44100, // Audio CD, most commonly used rate with MPEG-1 audio (VCD, SVCD, MP3). Covers the 20 kHz bandwidth.
-        48000, // Standard sampling rate used by professional digital video equipment, could reconstruct frequencies up to 22 kHz.
-        88200, // Used by some professional recording equipment when the destination is CD, such as mixers, EQs, compressors, reverb, crossovers and recording devices.
-        96000, // DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
-        176400, // Used in HDCD recorders and other professional applications for CD production.
-        192000, // Used with audio on professional video equipment. DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
-        352800, // Digital eXtreme Definition. Used for recording and editing Super Audio CDs.
-        374000 // Highest sample rate available for common software. Allows for precise peak detection.
-        // ReSharper enable CommentTypo
-    };
-
-    private static readonly double[] MasterVolumes =
-    {
-        0.0,
-        0.001,
-        0.5,
-        0.999,
-        1.0
-    };
-
-    # endregion
-
     private Mock<ISynthesizerStore> _mockedStore = null!;
     private ISynthesizerService _sut = null!;
-
-    private static double MasterVolumeTolerance(double masterVolume = 0)
-    {
-        return double.Max(masterVolume * 1e-9, 1e-12);
-    }
 
     [SetUp]
     public void SetupMocks()
@@ -124,13 +78,12 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         Assert.That(error?.ParamName, Is.EqualTo(nameof(request.SynthesizerId)));
     }
 
-    [Test]
-    public void UpdateSynthesizer_NewMasterVolume_UpdatesStoredEntity()
+    [TestCaseSource(nameof(Amplitudes))]
+    public void UpdateSynthesizer_NewMasterVolume_UpdatesStoredEntity(double masterVolume)
     {
         // Arrange
-        var tolerance = MasterVolumeTolerance();
+        var tolerance = DefaultDoubleTolerance();
         var id = new SynthesizerId();
-        var masterVolume = 0.5;
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.MasterVolume, masterVolume).Create();
 
@@ -151,7 +104,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     {
         // Arrange
         var id = new SynthesizerId();
-        var invalidMasterVolume = -1.0;
+        const double invalidMasterVolume = -1.0;
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.MasterVolume, invalidMasterVolume).Create();
 
@@ -310,22 +263,6 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             It.IsAny<SynthesizerInformation>()));
     }
 
-    [TestCaseSource(nameof(Waveforms))]
-    public void CreateSynthesizer_SynthesizerWithWaveform_WaveformIsStored(Waveform waveform)
-    {
-        // Arrange
-        var request = DataBuilder.CreateSynthesizerRequest()
-            .With(x => x.Waveform, waveform).Create();
-
-        // Act
-        _sut.CreateSynthesizer(request);
-
-        // Assert
-        _mockedStore.Verify(x => x.SetSynthesizer(
-            It.IsAny<SynthesizerId>(),
-            It.Is<SynthesizerInformation>(y => y.Waveform == waveform)));
-    }
-
     [TestCaseSource(nameof(SampleRates))]
     public void CreateSynthesizer_WithSamplingRate_SamplingRateIsStored(int sampleRate)
     {
@@ -342,11 +279,11 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             It.Is<SynthesizerInformation>(y => y.SampleRate == sampleRate)));
     }
 
-    [TestCaseSource(nameof(MasterVolumes))]
+    [TestCaseSource(nameof(Amplitudes))]
     public void CreateSynthesizer_WithMasterVolume_MasterVolumeIsStored(double masterVolume)
     {
         // Arrange
-        var tolerance = MasterVolumeTolerance(masterVolume);
+        var tolerance = DefaultDoubleTolerance(masterVolume);
         var request = DataBuilder.CreateSynthesizerRequest()
             .With(x => x.MasterVolume, masterVolume).Create();
 

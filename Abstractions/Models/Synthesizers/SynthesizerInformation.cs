@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Synthesizer.Abstractions.Models.Oscillators;
 
 namespace Synthesizer.Abstractions.Models.Synthesizers;
 
@@ -14,11 +13,6 @@ public record SynthesizerInformation
     public string DisplayName { get; init; } = string.Empty;
 
     /// <summary>
-    ///     Waveform of the synthesizer.
-    /// </summary>
-    public Waveform Waveform { get; init; } = Waveform.None;
-
-    /// <summary>
     ///     Sample rate of the synthesizer.
     /// </summary>
     public int SampleRate { get; init; } = 44100;
@@ -27,6 +21,6 @@ public record SynthesizerInformation
     ///     Master volume of the synthesizer.
     /// </summary>
 
-    [Range(0, 1.0)]
+    [Range(0.0, 1.0)]
     public double MasterVolume { get; init; } = 1.0;
 }

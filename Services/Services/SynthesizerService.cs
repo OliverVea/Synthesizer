@@ -23,7 +23,6 @@ public class SynthesizerService : ISynthesizerService
 
         var synthesizerInformation = new SynthesizerInformation
         {
-            Waveform = request.Waveform,
             DisplayName = request.DisplayName,
             SampleRate = request.SampleRate,
             MasterVolume = request.MasterVolume

@@ -24,5 +24,5 @@ public interface IOscillatorService
     ///     Creates a new Oscillator with the provided configuration.
     /// </summary>
     /// <param name="request">The configuration of the new oscillator.</param>
-    void CreateOscillator(CreateOscillatorRequest request);
+    OscillatorId CreateOscillator(CreateOscillatorRequest request);
 }

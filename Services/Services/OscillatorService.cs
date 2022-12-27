@@ -1,6 +1,7 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Oscillators;
+using Synthesizer.Services.Helpers;
 
 namespace Synthesizer.Services.Services;
 
@@ -23,11 +24,21 @@ public class OscillatorService : IOscillatorService
         return _store.ListOscillators();
     }
 
-    public void CreateOscillator(CreateOscillatorRequest request)
+    public OscillatorId CreateOscillator(CreateOscillatorRequest request)
     {
+        request.ThrowModelErrors(nameof(request));
+
         var oscillatorId = new OscillatorId();
-        var oscillatorInformation = new OscillatorInformation();
+
+        var oscillatorInformation = new OscillatorInformation
+        {
+            WaveForm = request.Waveform,
+            Frequency = request.Frequency,
+            Amplitude = request.Amplitude
+        };
 
         _store.SetOscillator(oscillatorId, oscillatorInformation);
+
+        return oscillatorId;
     }
 }

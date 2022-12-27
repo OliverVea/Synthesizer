@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-public class BaseUnitTest
+public class BaseUnitTest : TestData
 {
     internal readonly DataBuilder DataBuilder = new();
 }

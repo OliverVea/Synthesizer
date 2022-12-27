@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Synthesizer.Abstractions.Models.Oscillators;
 
 namespace Synthesizer.Abstractions.Models.Synthesizers;
 
@@ -12,11 +11,6 @@ public record CreateSynthesizerRequest
     ///     Human-readable display name of the synthesizer.
     /// </summary>
     public string DisplayName { get; init; } = string.Empty;
-
-    /// <summary>
-    ///     Waveform of the synthesizer.
-    /// </summary>
-    public Waveform Waveform { get; init; } = Waveform.None;
 
     /// <summary>
     ///     Sample rate of the synthesizer.
