@@ -13,8 +13,8 @@ Project management to keep track of goals and tasks. I find it important to have
     * [x] ~~Create setup~~
     * [x] ~~Create pipeline with tests and dotnet format~~
 * [ ] Synthesizer CRUD
-    * [ ] Creating basic synthesizer
-    * [ ] Getting synthesizer
+    * [x] Creating basic synthesizer
+    * [x] Getting synthesizer
     * [ ] Listing synthesizers
     * [ ] Deleting synthesizer
 * [ ] Oscillator CRUD
