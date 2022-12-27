@@ -8,10 +8,10 @@ Project management to keep track of goals and tasks. I find it important to have
 
 ### Tasks
 
-* [ ] Github setup
-  * [x] Create repo
-  * [ ] Create setup
-  * [ ] Create pipeline with tests and dotnet format
+* [x] Github setup
+    * [x] Create repo
+    * [x] Create setup
+    * [x] Create pipeline with tests and dotnet format
 * [ ] Synthesizer CRUD
     * [ ] Creating basic synthesizer
     * [ ] Getting synthesizer
@@ -67,6 +67,6 @@ Project management to keep track of goals and tasks. I find it important to have
 * Web-based input
 * GUI
 * Other kinds of signal generation
-  * From audio files
+    * From audio files
 * Customizable signal paths
-  * Recursive signal paths
+    * Recursive signal paths

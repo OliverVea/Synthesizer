@@ -11,11 +11,9 @@ public static class ServiceRegistrationExtension
     {
         services.AddScoped<ISynthesizerService, SynthesizerService>();
     }
-    
+
     public static void RegisterStores(this IServiceCollection services)
     {
         services.AddSingleton<ISynthesizerStore, SynthesizerStore>();
     }
-    
-    
 }

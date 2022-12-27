@@ -6,7 +6,7 @@ namespace Tests;
 public abstract class BaseIntegrationTest
 {
     private IServiceProvider _serviceProvider = null!;
-    
+
     [SetUp]
     public void SetupServices()
     {

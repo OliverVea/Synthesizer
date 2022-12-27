@@ -12,14 +12,14 @@ public class SawtoothGenerator : IWaveformGenerator
     {
         double wavePeriod = 1 / frequency;
         var phase = offset % wavePeriod;
-        
+
         for (var i = 0; i < sampleCount; i++)
         {
             var t = phase + i * samplingFrequency;
 
             var sample = t % wavePeriod;
             if (sample < 0) sample += wavePeriod;
-            
+
             sampleBuffer[i] = amplitude * sample * frequency;
         }
     }

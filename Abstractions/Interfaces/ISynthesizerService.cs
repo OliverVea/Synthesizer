@@ -10,7 +10,7 @@ public interface ISynthesizerService
     /// <param name="request">Initial configuration of the synthesizer.</param>
     /// <returns>Id of the newly created synthesizer.</returns>
     SynthesizerId CreateSynthesizer(CreateSynthesizerRequest request);
-    
+
     /// <summary>
     /// Synthesizes audio samples from the synthesizer.
     /// </summary>

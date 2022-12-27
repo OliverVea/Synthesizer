@@ -13,16 +13,16 @@ public class SynthesizerService : ISynthesizerService
     public SynthesizerId CreateSynthesizer(CreateSynthesizerRequest request)
     {
         var synthesizerId = SynthesizerId.NewId();
-        
+
         var synthesizerInformation = new SynthesizerInformation
         {
             Waveform = request.Waveform,
             DisplayName = request.DisplayName,
             SampleRate = request.SampleRate
         };
-        
+
         _store.SetSynthesizer(synthesizerId, synthesizerInformation);
-        
+
         return synthesizerId;
     }
 
