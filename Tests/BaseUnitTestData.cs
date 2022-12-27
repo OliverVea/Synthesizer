@@ -2,15 +2,17 @@
 
 namespace Tests;
 
-public class TestData
+public partial class BaseUnitTest
 {
-    protected static readonly object[] Waveforms =
+    protected static readonly Waveform[] Waveforms =
     {
         Waveform.None,
+        Waveform.Constant,
         Waveform.Sawtooth,
         Waveform.Sine,
         Waveform.Square,
-        Waveform.Triangle
+        Waveform.Triangle,
+        Waveform.Noise
     };
 
     protected static readonly int[] SampleRates =
@@ -27,12 +29,21 @@ public class TestData
         176400, // Used in HDCD recorders and other professional applications for CD production.
         192000, // Used with audio on professional video equipment. DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
         352800, // Digital eXtreme Definition. Used for recording and editing Super Audio CDs.
-        374000 // Highest sample rate available for common software. Allows for precise peak detection.
+        374000, // Highest sample rate available for common software. Allows for precise peak detection.
+        int.MaxValue
         // ReSharper enable CommentTypo
+    };
+
+    protected static readonly int[] InvalidSampleRates =
+    {
+        int.MinValue,
+        0
     };
 
     protected static readonly double[] Amplitudes =
     {
+        double.NegativeZero,
+        double.Epsilon,
         0.0,
         0.001,
         0.5,
@@ -40,10 +51,16 @@ public class TestData
         1.0
     };
 
-    protected static double DefaultDoubleTolerance(double value = 0)
+    protected static readonly double[] InvalidAmplitudes =
     {
-        return double.Max(value * 1e-9, 1e-12);
-    }
+        double.NaN,
+        double.NegativeInfinity,
+        double.PositiveInfinity,
+        double.MinValue,
+        double.MaxValue,
+        0.0 - 1e-10,
+        1.0 + 1e-10
+    };
 
     protected static readonly double[] Frequencies =
     {
@@ -53,5 +70,14 @@ public class TestData
         1000.0,
         10000.0,
         100000.0
+    };
+
+    protected static readonly double[] InvalidFrequencies =
+    {
+        double.NaN,
+        double.MinValue,
+        double.NegativeInfinity,
+        double.NegativeZero,
+        0.0
     };
 }

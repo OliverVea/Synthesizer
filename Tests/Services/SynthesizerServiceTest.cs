@@ -4,6 +4,7 @@ using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Services.Services;
+using Tests.DataBuilders;
 
 namespace Tests.Services;
 
@@ -99,12 +100,11 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             Times.Once());
     }
 
-    [Test]
-    public void UpdateSynthesizer_WithInvalidMasterVolume_ThrowsValidationError()
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void UpdateSynthesizer_WithInvalidMasterVolume_ThrowsValidationError(double invalidMasterVolume)
     {
         // Arrange
         var id = new SynthesizerId();
-        const double invalidMasterVolume = -1.0;
         var request = DataBuilder.UpdateSynthesizerRequest(id)
             .With(x => x.MasterVolume, invalidMasterVolume).Create();
 
@@ -264,7 +264,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
     }
 
     [TestCaseSource(nameof(SampleRates))]
-    public void CreateSynthesizer_WithSamplingRate_SamplingRateIsStored(int sampleRate)
+    public void CreateSynthesizer_WithSampleRate_SamplingRateIsStored(int sampleRate)
     {
         // Arrange
         var request = DataBuilder.CreateSynthesizerRequest()
@@ -277,6 +277,21 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         _mockedStore.Verify(x => x.SetSynthesizer(
             It.IsAny<SynthesizerId>(),
             It.Is<SynthesizerInformation>(y => y.SampleRate == sampleRate)));
+    }
+
+    [TestCaseSource(nameof(InvalidSampleRates))]
+    public void CreateSynthesizer_WithInvalidSampleRate_ThrowsValidationError(int sampleRate)
+    {
+        // Arrange
+        var request = DataBuilder.CreateSynthesizerRequest()
+            .With(x => x.SampleRate, sampleRate).Create();
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(request)));
+        Assert.IsTrue(error?.Message.Contains(nameof(request.SampleRate)));
     }
 
     [TestCaseSource(nameof(Amplitudes))]
@@ -296,13 +311,12 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
             It.Is<SynthesizerInformation>(y => Math.Abs(y.MasterVolume - masterVolume) < tolerance)));
     }
 
-    [Test]
-    public void CreateSynthesizer_WithNegativeMasterVolume_ThrowsValidationError()
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void CreateSynthesizer_WithInvalidMasterVolume_ThrowsValidationError(double invalidMasterVolume)
     {
         // Arrange
-        var masterVolume = -1.0;
         var request = DataBuilder.CreateSynthesizerRequest()
-            .With(x => x.MasterVolume, masterVolume).Create();
+            .With(x => x.MasterVolume, invalidMasterVolume).Create();
 
         // Act
         var error = Assert.Throws<ArgumentException>(() => _sut.CreateSynthesizer(request));

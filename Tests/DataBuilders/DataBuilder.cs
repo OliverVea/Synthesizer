@@ -4,6 +4,5 @@ namespace Tests.DataBuilders;
 
 internal partial class DataBuilder
 {
-    private Fixture Fixture = new Fixture();
-
+    private static readonly Fixture Fixture = new();
 }

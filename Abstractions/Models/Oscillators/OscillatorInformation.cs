@@ -10,7 +10,7 @@ public record OscillatorInformation
     /// <summary>
     ///     The waveform of the oscillator.
     /// </summary>
-    public Waveform WaveForm { get; init; } = Waveform.None;
+    public Waveform Waveform { get; init; } = Waveform.None;
 
     /// <summary>
     ///     Frequency of the Oscillator.
