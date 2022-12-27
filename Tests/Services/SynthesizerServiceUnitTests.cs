@@ -19,6 +19,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
 
     private static readonly int[] SampleRates =
     {
+        // ReSharper disable CommentTypo
         8000, // Adequate for human speech but without sibilance. Used in telephone/walkie-talkie.
         11025, // Used for lower-quality PCM, MPEG audio and for audio analysis of subwoofer bandpasses.
         16000, // Used in most VoIP and VVoIP, extension of telephone narrowband.
@@ -31,6 +32,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         192000, // Used with audio on professional video equipment. DVD-Audio, LPCM DVD tracks, Blu-ray audio tracks, HD DVD audio tracks.
         352800, // Digital eXtreme Definition. Used for recording and editing Super Audio CDs.
         374000 // Highest sample rate available for common software. Allows for precise peak detection.
+        // ReSharper enable CommentTypo
     };
 
     private static readonly double[] MasterVolumes =
