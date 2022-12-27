@@ -8,10 +8,10 @@ Project management to keep track of goals and tasks. I find it important to have
 
 ### Tasks
 
-* [x] Github setup
-    * [x] Create repo
-    * [x] Create setup
-    * [x] Create pipeline with tests and dotnet format
+* [x] ~~Github setup~~
+    * [x] ~~Create repo~~
+    * [x] ~~Create setup~~
+    * [x] ~~Create pipeline with tests and dotnet format~~
 * [ ] Synthesizer CRUD
     * [ ] Creating basic synthesizer
     * [ ] Getting synthesizer

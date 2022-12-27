@@ -7,6 +7,14 @@
         <RootNamespace>Synthesizer.Abstractions</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Abstractions.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Abstractions.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
       <Content Include="..\Readme.md">
         <Link>Readme.md</Link>
