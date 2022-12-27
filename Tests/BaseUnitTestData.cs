@@ -2,13 +2,8 @@
 
 namespace Tests;
 
-public class TestData
+public partial class BaseUnitTest
 {
-    protected static double DefaultDoubleTolerance(double value = 0)
-    {
-        return double.Max(value * 1e-9, 1e-12);
-    }
-
     protected static readonly Waveform[] Waveforms =
     {
         Waveform.None,
