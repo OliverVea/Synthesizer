@@ -14,15 +14,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Convert .drawio file to image
-        uses: Burnett01/actions-drawio@1.2
-        with:
-          src: ProjectStructure.drawio
-          dest: ProjectStructure.png
+      - name: Render .drawio files
+        uses: docker://ghcr.io/racklet/render-drawio-action:v1
+        with: # Showcasing the default values here
+          formats: 'svg'
+          sub-dirs: '.'
+          skip-dirs: '.git'
+          # files: '' # unset, specify `dest-file=src-file` mappings here
+          log-level: 'info'
+        id: render
 
-      - name: Upload image as artifact
-        uses: actions/upload-artifact@v3
+      - name: List the rendered files
+        run: 'ls -l ${{ steps.render.outputs.rendered-files }}'
+        
+      - name: Commit the rendered files
+        uses: EndBug/add-and-commit@v7
         with:
-          name: project-structure
-          path: ProjectStructure.png
-          if-no-files-found: error
+          # This makes the GH Actions user/bot the author of the commit
+          default_author: github_actor
+          message: 'Automatically render .drawio files'
+          add: "${{ steps.render.outputs.rendered-files }}"
+        if: "${{ steps.render.outputs.rendered-files != ''}}"
