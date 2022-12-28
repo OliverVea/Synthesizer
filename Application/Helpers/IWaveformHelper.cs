@@ -1,6 +1,6 @@
 ﻿using Synthesizer.Abstractions.Models.Oscillators;
 
-namespace Synthesizer.Services.Helpers;
+namespace Synthesizer.Application.Helpers;
 
 public interface IWaveformHelper
 {

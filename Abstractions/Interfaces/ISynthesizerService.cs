@@ -1,5 +1,4 @@
-﻿using Synthesizer.Abstractions.Models;
-using Synthesizer.Abstractions.Models.Ids;
+﻿using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Synthesizers;
 
 namespace Synthesizer.Abstractions.Interfaces;
@@ -19,9 +18,16 @@ public interface ISynthesizerService
     /// <summary>
     ///     Gets the information about a specific synthesizer.
     /// </summary>
-    /// <param name="id">The synthesizer id</param>
+    /// <param name="synthesizerId">The synthesizer id</param>
     /// <returns>The information of the synthesizer. Null if no synthesizer could be found with the provided id.</returns>
-    SynthesizerInformation? GetSynthesizer(SynthesizerId id);
+    SynthesizerInformation? GetSynthesizer(SynthesizerId synthesizerId);
+
+    /// <summary>
+    ///     Gets the information about a specific synthesizer. Throws ArgumentException if the Synthesizer could not be found.
+    /// </summary>
+    /// <param name="synthesizerId">The synthesizer id</param>
+    /// <returns>The information of the synthesizer.</returns>
+    SynthesizerInformation GetRequiredSynthesizer(SynthesizerId synthesizerId);
 
     /// <summary>
     ///     Lists all available synthesizers.
@@ -32,22 +38,14 @@ public interface ISynthesizerService
     /// <summary>
     ///     Deletes the synthesizer with the provided id.
     /// </summary>
-    /// <param name="id">Id of the synthesizer</param>
-    void DeleteSynthesizer(SynthesizerId id);
+    /// <param name="synthesizerId">Id of the synthesizer</param>
+    void DeleteSynthesizer(SynthesizerId synthesizerId);
 
     /// <summary>
     ///     Updates a synthesizer based on the provided data.
     /// </summary>
     /// <param name="request"></param>
     void UpdateSynthesizer(UpdateSynthesizerRequest request);
-
-    /// <summary>
-    ///     Synthesizes audio samples from the synthesizer.
-    /// </summary>
-    /// <param name="id">Id of the synthesizer to generate samples from.</param>
-    /// <param name="sampleCount">Number of samples to generate.</param>
-    /// <returns>Object containing audio samples generated from the synthesizer.</returns>
-    AudioSample GetNextSamples(SynthesizerId id, int sampleCount);
 
     /// <summary>
     /// Used to set the Oscillator id of a Synthesizer.

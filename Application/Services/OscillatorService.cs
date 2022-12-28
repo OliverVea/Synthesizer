@@ -1,9 +1,9 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Services.Helpers;
+using Synthesizer.Application.Helpers;
 
-namespace Synthesizer.Services.Services;
+namespace Synthesizer.Application.Services;
 
 public class OscillatorService : IOscillatorService
 {
@@ -14,9 +14,24 @@ public class OscillatorService : IOscillatorService
         _store = store;
     }
 
-    public OscillatorInformation? GetOscillator(OscillatorId id)
+    public OscillatorInformation? GetOscillator(OscillatorId oscillatorId)
     {
-        return _store.GetOscillator(id);
+        return _store.GetOscillator(oscillatorId);
+    }
+
+    public OscillatorInformation GetRequiredOscillator(OscillatorId oscillatorId)
+    {
+        return GetRequiredOscillator(oscillatorId, nameof(oscillatorId));
+    }
+
+    private OscillatorInformation GetRequiredOscillator(OscillatorId oscillatorId, string parameterName)
+    {
+        var oscillator = GetOscillator(oscillatorId);
+
+        if (oscillator == null)
+            throw new ArgumentException($"Could not find oscillator with id '{oscillatorId}'.", parameterName);
+
+        return oscillator;
     }
 
     public OscillatorInformation[] ListOscillators()
@@ -42,9 +57,9 @@ public class OscillatorService : IOscillatorService
         return oscillatorId;
     }
 
-    public void DeleteOscillator(OscillatorId id)
+    public void DeleteOscillator(OscillatorId oscillatorId)
     {
-        _store.DeleteOscillator(id);
+        _store.DeleteOscillator(oscillatorId);
     }
 
     public void UpdateOscillator(UpdateOscillatorRequest request)

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Synthesizer.Services.Helpers.WaveformGenerators;
+using Synthesizer.Application.Helpers.WaveformGenerators;
 
 namespace Tests.Helpers;
 

@@ -27,6 +27,10 @@ Project management to keep track of goals and tasks. I find it important to have
         * [x] ~~Update~~
     * [x] ~~Add oscillator to synthesizer~~
 * [ ] Generating audio samples
+    * [ ] Create SynthesizerConfiurationService
+    * [ ] Create SynthesizerGenerationService
+* [ ] Playing audio
+* [ ] Getting real-time input
 * [ ] Envelope CRUD
     * [ ] Create service for CRUD
     * [ ] Attaching to synthesizer and saving
@@ -62,6 +66,10 @@ Project management to keep track of goals and tasks. I find it important to have
     * The audio samples should be generated in a streamable manner.
 * It must be possible to stream the audio to an output audio device in windows.
 * Synthesizer configuration should be stored persistently.
+
+### Project structure
+
+![Project structure illustration](https://raw.githubusercontent.com/OliverVea/Synthesizer/develop/ProjectStructure.svg?sanitize=true)
 
 ### Not decided
 

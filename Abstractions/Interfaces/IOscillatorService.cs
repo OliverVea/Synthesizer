@@ -9,10 +9,16 @@ namespace Synthesizer.Abstractions.Interfaces;
 public interface IOscillatorService
 {
     /// <summary>
-    ///     Gets an Oscillator from the provided id.
+    ///     Gets an Oscillator from the provided id. Returns null if an Oscillator could not be found.
     /// </summary>
-    /// <param name="id">The Oscillator id</param>
-    OscillatorInformation? GetOscillator(OscillatorId id);
+    /// <param name="oscillatorId">The Oscillator id</param>
+    OscillatorInformation? GetOscillator(OscillatorId oscillatorId);
+
+    /// <summary>
+    ///     Gets an Oscillator from the provided id. Throws ArgumentException if an Oscillator could not be found.
+    /// </summary>
+    /// <param name="oscillatorId">The Oscillator id</param>
+    OscillatorInformation GetRequiredOscillator(OscillatorId oscillatorId);
 
     /// <summary>
     ///     Lists all available oscillators.
@@ -29,8 +35,8 @@ public interface IOscillatorService
     /// <summary>
     /// Deletes the specified Oscillator.
     /// </summary>
-    /// <param name="id">Id of the Oscillator</param>
-    void DeleteOscillator(OscillatorId id);
+    /// <param name="oscillatorId">Id of the Oscillator</param>
+    void DeleteOscillator(OscillatorId oscillatorId);
 
     /// <summary>
     /// Used to update an Oscillator.

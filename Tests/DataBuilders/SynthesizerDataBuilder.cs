@@ -6,17 +6,17 @@ namespace Tests.DataBuilders;
 
 internal partial class DataBuilder
 {
-    public static IPostprocessComposer<CreateSynthesizerRequest> CreateSynthesizerRequest()
+    public IPostprocessComposer<CreateSynthesizerRequest> CreateSynthesizerRequest()
     {
         return Fixture.Build<CreateSynthesizerRequest>();
     }
 
-    public static IPostprocessComposer<UpdateSynthesizerRequest> UpdateSynthesizerRequest(SynthesizerId id)
+    public IPostprocessComposer<UpdateSynthesizerRequest> UpdateSynthesizerRequest(SynthesizerId id)
     {
         return Fixture.Build<UpdateSynthesizerRequest>().With(x => x.SynthesizerId, id);
     }
 
-    public static IPostprocessComposer<SynthesizerInformation> SynthesizerInformation()
+    public IPostprocessComposer<SynthesizerInformation> SynthesizerInformation()
     {
         return Fixture.Build<SynthesizerInformation>();
     }

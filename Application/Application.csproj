@@ -4,11 +4,11 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Synthesizer.Services</RootNamespace>
+        <RootNamespace>Synthesizer.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
+        <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,10 +1,9 @@
 ﻿using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Synthesizers;
-using Synthesizer.Services.Helpers;
+using Synthesizer.Application.Helpers;
 
-namespace Synthesizer.Services.Services;
+namespace Synthesizer.Application.Services;
 
 public class SynthesizerService : ISynthesizerService
 {
@@ -34,9 +33,14 @@ public class SynthesizerService : ISynthesizerService
         return synthesizerId;
     }
 
-    public SynthesizerInformation? GetSynthesizer(SynthesizerId id)
+    public SynthesizerInformation? GetSynthesizer(SynthesizerId synthesizerId)
     {
-        return _store.GetSynthesizer(id);
+        return _store.GetSynthesizer(synthesizerId);
+    }
+
+    public SynthesizerInformation GetRequiredSynthesizer(SynthesizerId synthesizerId)
+    {
+        return GetRequiredSynthesizer(synthesizerId, nameof(synthesizerId));
     }
 
     private SynthesizerInformation GetRequiredSynthesizer(SynthesizerId synthesizerId, string parameterName)
@@ -54,14 +58,9 @@ public class SynthesizerService : ISynthesizerService
         return _store.ListSynthesizers();
     }
 
-    public void DeleteSynthesizer(SynthesizerId id)
+    public void DeleteSynthesizer(SynthesizerId synthesizerId)
     {
-        _store.DeleteSynthesizer(id);
-    }
-
-    public AudioSample GetNextSamples(SynthesizerId id, int sampleCount)
-    {
-        throw new NotImplementedException();
+        _store.DeleteSynthesizer(synthesizerId);
     }
 
     public void SetOscillatorId(SynthesizerId synthesizerId, OscillatorId? oscillatorId)
