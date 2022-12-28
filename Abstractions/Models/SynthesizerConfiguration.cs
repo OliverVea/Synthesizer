@@ -17,5 +17,5 @@ public struct SynthesizerConfiguration
     /// Master volume of the synthesizer.
     /// </summary>
     [Range(0.0, 1.0)]
-    public double MasterVolume { get; set; }
+    public double MasterVolume { get; init; }
 }
