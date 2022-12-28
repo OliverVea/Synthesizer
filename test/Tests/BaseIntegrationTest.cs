@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 using Synthesizer.ServiceRegistration;
 
 namespace Tests;

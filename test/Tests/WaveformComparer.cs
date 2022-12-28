@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Tests.Helpers;
+namespace Tests;
 
 public class WaveformComparer : IComparer
 {

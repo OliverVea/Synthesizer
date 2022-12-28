@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using NUnit.Framework;
 using Synthesizer.Application.Helpers.WaveformGenerators;
 
-namespace Tests.Helpers;
+namespace Tests.Application.Generators;
 
-public class SawtoothGeneratorUnitTests
+public class SawtoothGeneratorTest
 {
     private const double ComparerAccuracy = 0.0001;
     private readonly IComparer _comparer = new WaveformComparer(ComparerAccuracy);

@@ -1,4 +1,6 @@
-﻿namespace Tests;
+﻿using NUnit.Framework;
+
+namespace Tests.ServiceRegistration;
 
 public class ServiceRegistrationTest : BaseIntegrationTest
 {

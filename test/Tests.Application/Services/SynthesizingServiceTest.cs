@@ -1,7 +1,8 @@
-﻿using Synthesizer.Abstractions.Interfaces;
+﻿using NUnit.Framework;
+using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Application.Services;
 
-namespace Tests.Services;
+namespace Tests.Application.Services;
 
 public class SynthesizingServiceTest
 {

@@ -1,10 +1,8 @@
-﻿using Tests.DataBuilders;
-
-namespace Tests;
+﻿namespace Tests;
 
 public partial class BaseUnitTest
 {
-    internal readonly DataBuilder DataBuilder = new();
+    protected readonly DataBuilder DataBuilder = new();
 
     protected static double DefaultDoubleTolerance(double value = 0)
     {

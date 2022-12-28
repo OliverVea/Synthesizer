@@ -1,7 +1,7 @@
-﻿using Synthesizer.Abstractions.Models;
+﻿using NUnit.Framework;
 using Synthesizer.Abstractions.Models.Ids;
 
-namespace Tests.Helpers;
+namespace Tests.Abstractions;
 
 public class IdBaseTest
 {
