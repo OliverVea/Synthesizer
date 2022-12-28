@@ -1,7 +1,7 @@
 ﻿using AutoFixture.Dsl;
-using Synthesizer.Abstractions.Models.Ids;
-using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Abstractions.Models.Synthesizers;
+using Synthesizer.Domain.Entities.Ids;
+using Synthesizer.Domain.Entities.Oscillators;
+using Synthesizer.Domain.Entities.Synthesizers;
 
 namespace Tests.Application;
 

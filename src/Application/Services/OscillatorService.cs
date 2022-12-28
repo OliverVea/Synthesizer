@@ -1,7 +1,7 @@
-﻿using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models.Ids;
-using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Application.Helpers;
+﻿using Synthesizer.Application.Helpers;
+using Synthesizer.Domain.Entities.Ids;
+using Synthesizer.Domain.Entities.Oscillators;
+using Synthesizer.Domain.Interfaces;
 
 namespace Synthesizer.Application.Services;
 

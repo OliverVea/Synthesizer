@@ -1,5 +1,5 @@
-﻿using Synthesizer.Abstractions.Models.Oscillators;
-using Synthesizer.Application.Helpers.WaveformGenerators;
+﻿using Synthesizer.Application.Helpers.WaveformGenerators;
+using Synthesizer.Domain.Entities.Oscillators;
 
 namespace Synthesizer.Application.Helpers;
 

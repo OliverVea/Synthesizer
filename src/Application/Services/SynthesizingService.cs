@@ -1,4 +1,4 @@
-﻿using Synthesizer.Abstractions.Interfaces;
+﻿using Synthesizer.Domain.Interfaces;
 
 namespace Synthesizer.Application.Services;
 

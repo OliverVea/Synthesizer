@@ -1,4 +1,4 @@
-﻿using Synthesizer.Abstractions.Models.Oscillators;
+﻿using Synthesizer.Domain.Entities.Oscillators;
 
 namespace Synthesizer.Application.Helpers;
 

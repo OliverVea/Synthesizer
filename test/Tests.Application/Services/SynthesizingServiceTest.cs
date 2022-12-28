@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Application.Services;
+using Synthesizer.Domain.Interfaces;
 
 namespace Tests.Application.Services;
 

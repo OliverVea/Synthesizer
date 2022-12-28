@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
 using Moq;
 using NUnit.Framework;
-using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models.Ids;
-using Synthesizer.Abstractions.Models.Synthesizers;
 using Synthesizer.Application.Services;
+using Synthesizer.Domain.Entities.Ids;
+using Synthesizer.Domain.Entities.Synthesizers;
+using Synthesizer.Domain.Interfaces;
 
 namespace Tests.Application.Services;
 

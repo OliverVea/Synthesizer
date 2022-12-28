@@ -1,6 +1,6 @@
-﻿using Synthesizer.Abstractions.Interfaces;
-using Synthesizer.Abstractions.Models;
-using Synthesizer.Abstractions.Models.Ids;
+﻿using Synthesizer.Domain.Entities;
+using Synthesizer.Domain.Entities.Ids;
+using Synthesizer.Domain.Interfaces;
 
 namespace Synthesizer.Application.Services;
 
