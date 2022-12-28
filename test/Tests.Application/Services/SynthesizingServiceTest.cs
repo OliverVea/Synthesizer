@@ -28,12 +28,11 @@ public class SynthesizingServiceTest : BaseUnitTest
     public void GenerateSamples_WithValidInput_ReturnsSampleArrayWithSize()
     {
         // Arrange
-        var synthesizerConfiguration = DataBuilder.SynthesizerConfiguration().Create();
         const int sampleCount = 32;
-        const double offset = 0.0;
+        var synthesizerConfiguration = DataBuilder.SynthesizerConfiguration().Create();
 
         // Act
-        var actual = _sut.GenerateSamples(synthesizerConfiguration, sampleCount, offset);
+        var actual = _sut.GenerateSamples(sampleCount, synthesizerConfiguration);
 
         // Assert
         Assert.That(actual.AudioSamples.Length, Is.EqualTo(sampleCount));

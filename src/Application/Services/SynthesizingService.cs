@@ -5,7 +5,8 @@ namespace Synthesizer.Application.Services;
 
 public class SynthesizingService : ISynthesizingService
 {
-    public AudioSample GenerateSamples(SynthesizerConfiguration synthesizerConfiguration, int sampleCount,
+    public AudioSample GenerateSamples(int sampleCount,
+        SynthesizerConfiguration synthesizerConfiguration,
         double offset)
     {
         return new AudioSample
