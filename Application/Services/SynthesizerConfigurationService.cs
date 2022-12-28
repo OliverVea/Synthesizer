@@ -26,7 +26,8 @@ public class SynthesizerConfigurationService : ISynthesizerConfigurationService
 
         return new SynthesizerConfiguration
         {
-            SampleRate = synthesizerInformation.SampleRate
+            SampleRate = synthesizerInformation.SampleRate,
+            MasterVolume = synthesizerInformation.MasterVolume
         };
     }
 }

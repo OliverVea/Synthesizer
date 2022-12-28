@@ -84,8 +84,8 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
     }
 
     [TestCaseSource(nameof(SampleRates))]
-    public void GetSynthesizerConfiguration_WithSampleRate_ConfigurationHasSampleRate(
-        int sampleRate)
+    [TestCaseSource(nameof(InvalidSampleRates))]
+    public void GetSynthesizerConfiguration_WithSampleRate_ConfigurationHasSampleRate(int sampleRate)
     {
         // Arrange
         var synthesizerId = new SynthesizerId();
@@ -100,6 +100,25 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
 
         // Assert
         Assert.That(synthesizerConfiguration.SampleRate, Is.EqualTo(sampleRate));
+    }
+
+    [TestCaseSource(nameof(Amplitudes))]
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void GetSynthesizerConfiguration_WithMasterVolume_ConfigurationHasMasterVolume(double masterVolume)
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+        var synthesizerInformation = DataBuilder.SynthesizerInformation()
+            .With(x => x.MasterVolume, masterVolume).Create();
+
+        _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
+            .Returns(synthesizerInformation);
+
+        // Act
+        var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
+
+        // Assert
+        Assert.That(synthesizerConfiguration.MasterVolume, Is.EqualTo(masterVolume));
     }
 
     # endregion
