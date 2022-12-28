@@ -4,7 +4,6 @@ using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
 using Synthesizer.Abstractions.Models.Oscillators;
 using Synthesizer.Application.Services;
-using Tests.DataBuilders;
 
 namespace Tests.Services;
 
@@ -218,6 +217,39 @@ public class OscillatorServiceTest : BaseUnitTest
 
         // Act
         var actual = _sut.GetOscillator(id);
+
+        // Assert
+        Assert.That(actual, Is.EqualTo(oscillatorInformation));
+    }
+
+    # endregion
+
+    # region GetRequiredOscillator
+
+    [Test]
+    public void GetRequiredOscillator_WithInvalidOscillatorId_ThrowsArgumentException()
+    {
+        // Arrange
+        var oscillatorId = new OscillatorId();
+
+        // Act
+        var error = Assert.Throws<ArgumentException>(() => _sut.GetRequiredOscillator(oscillatorId));
+
+        // Assert
+        Assert.That(error?.ParamName, Is.EqualTo(nameof(oscillatorId)));
+    }
+
+    [Test]
+    public void GetRequiredOscillator_WithValidOscillatorId_ReturnsOscillator()
+    {
+        // Arrange
+        var oscillatorId = new OscillatorId();
+
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
+        _mockedStore.Setup(x => x.GetOscillator(oscillatorId)).Returns(oscillatorInformation);
+
+        // Act
+        var actual = _sut.GetRequiredOscillator(oscillatorId);
 
         // Assert
         Assert.That(actual, Is.EqualTo(oscillatorInformation));
