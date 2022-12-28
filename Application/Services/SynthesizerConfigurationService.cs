@@ -22,12 +22,15 @@ public class SynthesizerConfigurationService : ISynthesizerConfigurationService
             throw new InvalidOperationException(
                 "Cannot create synthesizer configuration from synthesizer with no oscillator.");
 
-        _oscillatorService.GetRequiredOscillator(synthesizerInformation.OscillatorId);
+        var oscillatorInformation = _oscillatorService.GetRequiredOscillator(synthesizerInformation.OscillatorId);
 
         return new SynthesizerConfiguration
         {
             SampleRate = synthesizerInformation.SampleRate,
-            MasterVolume = synthesizerInformation.MasterVolume
+            MasterVolume = synthesizerInformation.MasterVolume,
+            Waveform = oscillatorInformation.Waveform,
+            Frequency = oscillatorInformation.Frequency,
+            Amplitude = oscillatorInformation.Amplitude
         };
     }
 }

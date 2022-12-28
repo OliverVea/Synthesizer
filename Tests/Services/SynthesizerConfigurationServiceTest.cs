@@ -2,6 +2,7 @@
 using Moq;
 using Synthesizer.Abstractions.Interfaces;
 using Synthesizer.Abstractions.Models.Ids;
+using Synthesizer.Abstractions.Models.Oscillators;
 using Synthesizer.Application.Services;
 
 namespace Tests.Services;
@@ -37,10 +38,13 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
     {
         // Arrange
         var synthesizerId = new SynthesizerId();
-
         var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
+
         _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
             .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
 
         // Act
         _sut.GetSynthesizerConfiguration(synthesizerId);
@@ -70,11 +74,14 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
         // Arrange
         var synthesizerId = new SynthesizerId();
         var oscillatorId = new OscillatorId();
-
         var synthesizerInformation = DataBuilder.SynthesizerInformation()
             .With(x => x.OscillatorId, oscillatorId).Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
+
         _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
             .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
 
         // Act
         _sut.GetSynthesizerConfiguration(synthesizerId);
@@ -91,9 +98,12 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
         var synthesizerId = new SynthesizerId();
         var synthesizerInformation = DataBuilder.SynthesizerInformation()
             .With(x => x.SampleRate, sampleRate).Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
 
         _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
             .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
 
         // Act
         var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
@@ -110,15 +120,80 @@ public class SynthesizerConfigurationServiceTest : BaseUnitTest
         var synthesizerId = new SynthesizerId();
         var synthesizerInformation = DataBuilder.SynthesizerInformation()
             .With(x => x.MasterVolume, masterVolume).Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().Create();
 
         _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
             .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
 
         // Act
         var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
 
         // Assert
         Assert.That(synthesizerConfiguration.MasterVolume, Is.EqualTo(masterVolume));
+    }
+
+    [TestCaseSource(nameof(Waveforms))]
+    public void GetSynthesizerConfiguration_WithWaveform_ConfigurationHasWaveform(Waveform waveform)
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().With(x => x.Waveform, waveform).Create();
+
+        _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
+            .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
+
+        // Act
+        var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
+
+        // Assert
+        Assert.That(synthesizerConfiguration.Waveform, Is.EqualTo(waveform));
+    }
+
+    [TestCaseSource(nameof(Frequencies))]
+    [TestCaseSource(nameof(InvalidFrequencies))]
+    public void GetSynthesizerConfiguration_WithFrequency_ConfigurationHasFrequency(double frequency)
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().With(x => x.Frequency, frequency).Create();
+
+        _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
+            .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
+
+        // Act
+        var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
+
+        // Assert
+        Assert.That(synthesizerConfiguration.Frequency, Is.EqualTo(frequency));
+    }
+
+    [TestCaseSource(nameof(Amplitudes))]
+    [TestCaseSource(nameof(InvalidAmplitudes))]
+    public void GetSynthesizerConfiguration_WithAmplitude_ConfigurationHasAmplitude(double amplitude)
+    {
+        // Arrange
+        var synthesizerId = new SynthesizerId();
+        var synthesizerInformation = DataBuilder.SynthesizerInformation().Create();
+        var oscillatorInformation = DataBuilder.OscillatorInformation().With(x => x.Amplitude, amplitude).Create();
+
+        _mockedSynthesizerService.Setup(x => x.GetRequiredSynthesizer(synthesizerId))
+            .Returns(synthesizerInformation);
+        _mockedOscillatorService.Setup(x => x.GetRequiredOscillator(It.IsAny<OscillatorId>()))
+            .Returns(oscillatorInformation);
+
+        // Act
+        var synthesizerConfiguration = _sut.GetSynthesizerConfiguration(synthesizerId);
+
+        // Assert
+        Assert.That(synthesizerConfiguration.Amplitude, Is.EqualTo(amplitude));
     }
 
     # endregion

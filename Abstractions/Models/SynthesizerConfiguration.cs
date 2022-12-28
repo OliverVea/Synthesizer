@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Synthesizer.Abstractions.Models.Oscillators;
 
 namespace Synthesizer.Abstractions.Models;
 
@@ -18,4 +19,21 @@ public struct SynthesizerConfiguration
     /// </summary>
     [Range(0.0, 1.0)]
     public double MasterVolume { get; init; }
+
+    /// <summary>
+    /// Waveform of the synthesizer.
+    /// </summary>
+    public Waveform Waveform { get; init; }
+
+    /// <summary>
+    /// Frequency of the synthesizer.
+    /// </summary>
+    [Range(double.Epsilon, double.MaxValue)]
+    public double Frequency { get; init; }
+
+    /// <summary>
+    /// Amplitude of the synthesizer.
+    /// </summary>
+    [Range(0.0, 1.0)]
+    public double Amplitude { get; init; }
 }
