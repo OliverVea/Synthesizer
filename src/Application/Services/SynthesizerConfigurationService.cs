@@ -24,13 +24,11 @@ public class SynthesizerConfigurationService : ISynthesizerConfigurationService
 
         var oscillatorInformation = _oscillatorService.GetRequiredOscillator(synthesizerInformation.OscillatorId);
 
-        return new SynthesizerConfiguration
-        {
-            SampleRate = synthesizerInformation.SampleRate,
-            MasterVolume = synthesizerInformation.MasterVolume,
-            Waveform = oscillatorInformation.Waveform,
-            Frequency = oscillatorInformation.Frequency,
-            Amplitude = oscillatorInformation.Amplitude
-        };
+        return new SynthesizerConfiguration(
+            synthesizerInformation.SampleRate,
+            synthesizerInformation.MasterVolume,
+            oscillatorInformation.Waveform,
+            oscillatorInformation.Frequency,
+            oscillatorInformation.Amplitude);
     }
 }

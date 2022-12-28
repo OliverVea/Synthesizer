@@ -1,4 +1,6 @@
 ﻿using AutoFixture.Dsl;
+using AutoFixture.Kernel;
+using Synthesizer.Domain.Entities;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
 using Synthesizer.Domain.Entities.Synthesizers;
@@ -38,5 +40,10 @@ public static class DataBuilderExtensions
     public static IPostprocessComposer<SynthesizerInformation> SynthesizerInformation(this DataBuilder dataBuilder)
     {
         return dataBuilder.Fixture.Build<SynthesizerInformation>();
+    }
+
+    public static IPostprocessComposer<SynthesizerConfiguration> SynthesizerConfiguration(this DataBuilder dataBuilder)
+    {
+        return dataBuilder.Fixture.Build<SynthesizerConfiguration>();
     }
 }
