@@ -26,9 +26,9 @@ Project management to keep track of goals and tasks. I find it important to have
         * [x] ~~Delete~~
         * [x] ~~Update~~
     * [x] ~~Add oscillator to synthesizer~~
-* [ ] Generating audio samples
-    * [ ] Create SynthesizerConfiurationService
-    * [ ] Create SynthesizerGenerationService
+* [x] ~~Generating audio samples~~
+    * [x] ~~Create SynthesizerConfiurationService~~
+    * [x] ~~Create SynthesizerGenerationService~~
 * [ ] Playing audio
 * [ ] Getting real-time input
 * [ ] Envelope CRUD
