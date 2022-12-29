@@ -1,7 +1,7 @@
 ﻿using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
 
-namespace Synthesizer.Domain.Interfaces;
+namespace Synthesizer.Domain.Services;
 
 /// <summary>
 ///     Service used to manage and use Synthesizers.

@@ -1,7 +1,8 @@
 ﻿using Synthesizer.Application.Helpers;
+using Synthesizer.Application.Infrastructure;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
-using Synthesizer.Domain.Interfaces;
+using Synthesizer.Domain.Services;
 
 namespace Synthesizer.Application.Services;
 

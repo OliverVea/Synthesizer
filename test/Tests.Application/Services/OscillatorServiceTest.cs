@@ -1,10 +1,11 @@
 ﻿using AutoFixture;
 using Moq;
 using NUnit.Framework;
+using Synthesizer.Application.Infrastructure;
 using Synthesizer.Application.Services;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
-using Synthesizer.Domain.Interfaces;
+using Synthesizer.Domain.Services;
 
 namespace Tests.Application.Services;
 

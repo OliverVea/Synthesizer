@@ -1,7 +1,7 @@
 ﻿using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
 
-namespace Synthesizer.Domain.Interfaces;
+namespace Synthesizer.Domain.Services;
 
 /// <summary>
 ///     Used to manage and use Oscillators.

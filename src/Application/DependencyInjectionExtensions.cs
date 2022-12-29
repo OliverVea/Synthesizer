@@ -2,7 +2,7 @@
 using Synthesizer.Application.Helpers;
 using Synthesizer.Application.Helpers.WaveformGenerators;
 using Synthesizer.Application.Services;
-using Synthesizer.Domain.Interfaces;
+using Synthesizer.Domain.Services;
 
 namespace Synthesizer.Application;
 

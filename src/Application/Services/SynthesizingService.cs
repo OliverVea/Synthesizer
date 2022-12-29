@@ -1,6 +1,6 @@
 ﻿using Synthesizer.Application.Helpers;
 using Synthesizer.Domain.Entities;
-using Synthesizer.Domain.Interfaces;
+using Synthesizer.Domain.Services;
 
 namespace Synthesizer.Application.Services;
 

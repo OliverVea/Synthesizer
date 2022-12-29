@@ -1,7 +1,7 @@
 ﻿using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
 
-namespace Synthesizer.Domain.Interfaces;
+namespace Synthesizer.Application.Infrastructure;
 
 /// <summary>
 ///     Store used for storing Synthesizers for ISynthesizerService.
