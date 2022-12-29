@@ -69,7 +69,7 @@ Project management to keep track of goals and tasks. I find it important to have
 
 ### Project structure
 
-![Project structure illustration](https://raw.githubusercontent.com/OliverVea/Synthesizer/develop/ProjectStructure.svg?sanitize=true)
+![Project structure illustration](https://raw.githubusercontent.com/OliverVea/Synthesizer/develop/ProjectStructure.svg)
 
 ### Not decided
 
