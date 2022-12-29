@@ -1,9 +1,14 @@
-﻿namespace Synthesizer.Application.Helpers.WaveformGenerators;
+﻿using Synthesizer.Domain.Entities.Oscillators;
+
+namespace Synthesizer.Application.Helpers.WaveformGenerators;
 
 public class SawtoothGenerator : IWaveformGenerator
 {
-    public void GenerateSamples(double[] sampleBuffer,
-        double samplingFrequency,
+    public Waveform Waveform => Waveform.Sawtooth;
+
+    public void GenerateSamples(
+        double[] sampleBuffer,
+        double sampleRate,
         double amplitude,
         double frequency,
         double offset)
@@ -13,7 +18,7 @@ public class SawtoothGenerator : IWaveformGenerator
 
         for (var i = 0; i < sampleBuffer.Length; i++)
         {
-            var t = phase + i * samplingFrequency;
+            var t = phase + i * sampleRate;
 
             var sample = t % wavePeriod;
             if (sample < 0) sample += wavePeriod;

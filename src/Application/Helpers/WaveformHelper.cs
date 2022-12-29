@@ -5,15 +5,12 @@ namespace Synthesizer.Application.Helpers;
 
 public class WaveformHelper : IWaveformHelper
 {
-    private readonly IReadOnlyDictionary<Waveform, IWaveformGenerator> _waveformGenerators =
-        new Dictionary<Waveform, IWaveformGenerator>
-        {
-            { Waveform.None, new NoneGenerator() },
-            { Waveform.Sawtooth, new SawtoothGenerator() },
-            { Waveform.Sine, new SineGenerator() },
-            { Waveform.Square, new SquareGenerator() },
-            { Waveform.Triangle, new TriangleGenerator() }
-        };
+    private readonly IReadOnlyDictionary<Waveform, IWaveformGenerator> _waveformGenerators;
+
+    public WaveformHelper(IEnumerable<IWaveformGenerator> waveformGenerators)
+    {
+        _waveformGenerators = waveformGenerators.ToDictionary(x => x.Waveform);
+    }
 
     public void GenerateSamples(
         double[] sampleBuffer,
@@ -23,7 +20,11 @@ public class WaveformHelper : IWaveformHelper
         Waveform waveform,
         double offset = 0)
     {
-        _waveformGenerators[waveform]
-            .GenerateSamples(sampleBuffer, sampleRate, amplitude, frequency, offset);
+        _waveformGenerators[waveform].GenerateSamples(
+            sampleBuffer,
+            sampleRate,
+            amplitude,
+            frequency,
+            offset);
     }
 }

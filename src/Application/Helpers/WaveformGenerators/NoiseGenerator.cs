@@ -2,9 +2,9 @@
 
 namespace Synthesizer.Application.Helpers.WaveformGenerators;
 
-public class SineGenerator : IWaveformGenerator
+public class NoiseGenerator : IWaveformGenerator
 {
-    public Waveform Waveform => Waveform.Sine;
+    public Waveform Waveform => Waveform.Noise;
 
     public void GenerateSamples(
         double[] sampleBuffer,
