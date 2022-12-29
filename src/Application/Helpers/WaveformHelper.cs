@@ -17,7 +17,6 @@ public class WaveformHelper : IWaveformHelper
 
     public void GenerateSamples(
         double[] sampleBuffer,
-        int sampleCount,
         int sampleRate,
         double amplitude,
         double frequency,
@@ -25,6 +24,6 @@ public class WaveformHelper : IWaveformHelper
         double offset = 0)
     {
         _waveformGenerators[waveform]
-            .GenerateSamples(sampleBuffer, sampleCount, sampleRate, amplitude, frequency, offset);
+            .GenerateSamples(sampleBuffer, sampleRate, amplitude, frequency, offset);
     }
 }

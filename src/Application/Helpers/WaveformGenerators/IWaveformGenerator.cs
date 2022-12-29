@@ -2,9 +2,7 @@
 
 public interface IWaveformGenerator
 {
-    public void GenerateSamples(
-        double[] sampleBuffer,
-        int sampleCount,
+    public void GenerateSamples(double[] sampleBuffer,
         double samplingFrequency,
         double amplitude,
         double frequency,

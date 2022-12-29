@@ -6,7 +6,6 @@ public interface IWaveformHelper
 {
     void GenerateSamples(
         double[] sampleBuffer,
-        int sampleCount,
         int sampleRate,
         double amplitude,
         double frequency,
