@@ -18,7 +18,7 @@ public class SynthesizingService : ISynthesizingService
         double offset)
     {
         var sampleBuffer = new double[sampleCount];
-        
+
         _waveformHelper.GenerateSamples(
             sampleBuffer,
             synthesizerConfiguration.SampleRate,
