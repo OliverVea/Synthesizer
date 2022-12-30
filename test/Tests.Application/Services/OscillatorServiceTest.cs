@@ -5,6 +5,7 @@ using Synthesizer.Application.Infrastructure;
 using Synthesizer.Application.Services;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
+using Synthesizer.Domain.Exceptions;
 using Synthesizer.Domain.Services;
 
 namespace Tests.Application.Services;
@@ -235,7 +236,7 @@ public class OscillatorServiceTest : BaseUnitTest
         var oscillatorId = new OscillatorId();
 
         // Act
-        var error = Assert.Throws<ArgumentException>(() => _sut.GetRequiredOscillator(oscillatorId));
+        var error = Assert.Throws<NoOscillatorWithIdException>(() => _sut.GetRequiredOscillator(oscillatorId));
 
         // Assert
         Assert.That(error?.ParamName, Is.EqualTo(nameof(oscillatorId)));
@@ -305,7 +306,7 @@ public class OscillatorServiceTest : BaseUnitTest
         _mockedStore.Setup(x => x.GetOscillator(id)).Returns((OscillatorInformation?)null);
 
         // Act
-        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateOscillator(request));
+        var error = Assert.Throws<NoOscillatorWithIdException>(() => _sut.UpdateOscillator(request));
 
         // Assert
         Assert.That(error?.ParamName, Is.EqualTo(nameof(request.OscillatorId)));

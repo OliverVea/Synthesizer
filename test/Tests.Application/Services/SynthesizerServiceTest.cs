@@ -5,6 +5,7 @@ using Synthesizer.Application.Infrastructure;
 using Synthesizer.Application.Services;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
+using Synthesizer.Domain.Exceptions;
 using Synthesizer.Domain.Services;
 
 namespace Tests.Application.Services;
@@ -74,7 +75,7 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         _mockedStore.Setup(x => x.GetSynthesizer(id)).Returns((SynthesizerInformation?)null);
 
         // Act
-        var error = Assert.Throws<ArgumentException>(() => _sut.UpdateSynthesizer(request));
+        var error = Assert.Throws<NoSynthesizerWithIdException>(() => _sut.UpdateSynthesizer(request));
 
         // Assert
         Assert.That(error?.ParamName, Is.EqualTo(nameof(request.SynthesizerId)));
@@ -260,7 +261,8 @@ public class SynthesizerServiceUnitTests : BaseUnitTest
         var synthesizerId = new SynthesizerId();
 
         // Act
-        var error = Assert.Throws<ArgumentException>(() => _sut.GetRequiredSynthesizer(synthesizerId));
+        var error = Assert.Throws<NoSynthesizerWithIdException>(() =>
+            _sut.GetRequiredSynthesizer(synthesizerId));
 
         // Assert
         Assert.That(error?.ParamName, Is.EqualTo(nameof(synthesizerId)));
