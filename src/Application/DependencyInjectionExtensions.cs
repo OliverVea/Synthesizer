@@ -11,12 +11,22 @@ public static class ServiceRegistrationExtension
     public static void RegisterServices(this IServiceCollection services)
     {
         // Services
+        services.AddScoped<IOscillatorService, OscillatorService>();
         services.AddScoped<ISynthesizerService, SynthesizerService>();
+        services.AddScoped<ISynthesizingService, SynthesizingService>();
+        services.AddScoped<IAudioInterfaceService, AudioInterfaceService>();
 
-        // Helpers
+        services.RegisterHelpers();
+        services.RegisterWaveformGenerators();
+    }
+
+    private static void RegisterHelpers(this IServiceCollection services)
+    {
         services.AddScoped<IWaveformHelper, WaveformHelper>();
+    }
 
-        // Waveform Generators
+    private static void RegisterWaveformGenerators(this IServiceCollection services)
+    {
         services.AddScoped<IWaveformGenerator, NoiseGenerator>();
         services.AddScoped<IWaveformGenerator, NoneGenerator>();
         services.AddScoped<IWaveformGenerator, SawtoothGenerator>();
