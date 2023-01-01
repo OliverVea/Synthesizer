@@ -18,7 +18,7 @@ public interface IOscillatorStore
     ///     Lists all available oscillators.
     /// </summary>
     /// <returns></returns>
-    OscillatorInformation[] ListOscillators();
+    IEnumerable<OscillatorInformation> ListOscillators();
 
     /// <summary>
     ///     Sets the Oscillator with the provided id to be equal to the configuration.

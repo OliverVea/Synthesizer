@@ -11,7 +11,7 @@ public class AudioInterfaceService : IAudioInterfaceService
         _audioInterfaceProviders = audioInterfaceProviders;
     }
 
-    public IAudioInterface[] ListAudioInterfaces()
+    public IEnumerable<IAudioInterface> ListAudioInterfaces()
     {
         return _audioInterfaceProviders.SelectMany(x => x.ListAudioInterfaces()).ToArray();
     }

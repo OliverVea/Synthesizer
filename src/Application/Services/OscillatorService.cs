@@ -35,7 +35,7 @@ public class OscillatorService : IOscillatorService
         return oscillator;
     }
 
-    public OscillatorInformation[] ListOscillators()
+    public IEnumerable<OscillatorInformation> ListOscillators()
     {
         return _store.ListOscillators();
     }

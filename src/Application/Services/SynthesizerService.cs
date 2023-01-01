@@ -53,7 +53,7 @@ public class SynthesizerService : ISynthesizerService
         return synthesizer;
     }
 
-    public SynthesizerInformation[] ListSynthesizers()
+    public IEnumerable<SynthesizerInformation> ListSynthesizers()
     {
         return _store.ListSynthesizers();
     }

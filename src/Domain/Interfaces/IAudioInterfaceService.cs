@@ -9,5 +9,5 @@ public interface IAudioInterfaceService
     /// Lists available audio interfaces.
     /// </summary>
     /// <returns>Available audio interfaces.</returns>
-    IAudioInterface[] ListAudioInterfaces();
+    IEnumerable<IAudioInterface> ListAudioInterfaces();
 }
