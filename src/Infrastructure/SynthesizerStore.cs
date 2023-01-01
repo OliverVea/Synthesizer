@@ -1,8 +1,8 @@
-﻿using Synthesizer.Domain.Entities.Ids;
+﻿using Synthesizer.Application.Infrastructure;
+using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
-using Synthesizer.Domain.Interfaces;
 
-namespace Synthesizer.Stores.Memory;
+namespace Synthesizer.Infrastructure;
 
 public class SynthesizerStore : ISynthesizerStore
 {

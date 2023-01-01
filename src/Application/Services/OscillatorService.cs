@@ -1,6 +1,8 @@
 ﻿using Synthesizer.Application.Helpers;
+using Synthesizer.Application.Infrastructure;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
+using Synthesizer.Domain.Exceptions;
 using Synthesizer.Domain.Interfaces;
 
 namespace Synthesizer.Application.Services;
@@ -28,13 +30,12 @@ public class OscillatorService : IOscillatorService
     {
         var oscillator = GetOscillator(oscillatorId);
 
-        if (oscillator == null)
-            throw new ArgumentException($"Could not find oscillator with id '{oscillatorId}'.", parameterName);
+        if (oscillator == null) throw new NoOscillatorWithIdException(oscillatorId, parameterName);
 
         return oscillator;
     }
 
-    public OscillatorInformation[] ListOscillators()
+    public IEnumerable<OscillatorInformation> ListOscillators()
     {
         return _store.ListOscillators();
     }
@@ -68,8 +69,7 @@ public class OscillatorService : IOscillatorService
 
         var currentOscillator = _store.GetOscillator(request.OscillatorId);
         if (currentOscillator == null)
-            throw new ArgumentException($"Could not find oscillator with id '{request.OscillatorId}.",
-                nameof(request.OscillatorId));
+            throw new NoOscillatorWithIdException(request.OscillatorId, nameof(request.OscillatorId));
 
         var newOscillator = currentOscillator with
         {

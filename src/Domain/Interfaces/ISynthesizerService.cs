@@ -33,7 +33,7 @@ public interface ISynthesizerService
     ///     Lists all available synthesizers.
     /// </summary>
     /// <returns></returns>
-    SynthesizerInformation[] ListSynthesizers();
+    IEnumerable<SynthesizerInformation> ListSynthesizers();
 
     /// <summary>
     ///     Deletes the synthesizer with the provided id.

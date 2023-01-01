@@ -9,9 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoFixture" Version="4.17.0" />
-        <PackageReference Include="FluentAssertions" Version="6.8.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
         <PackageReference Include="Moq" Version="4.18.3" />
         <PackageReference Include="NUnit" Version="3.13.3" />
@@ -21,8 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Application\Application.csproj" />
-      <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Application.NAudio\Application.NAudio.csproj" />
+      <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

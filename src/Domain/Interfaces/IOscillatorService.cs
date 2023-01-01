@@ -24,7 +24,7 @@ public interface IOscillatorService
     ///     Lists all available oscillators.
     /// </summary>
     /// <returns></returns>
-    OscillatorInformation[] ListOscillators();
+    IEnumerable<OscillatorInformation> ListOscillators();
 
     /// <summary>
     ///     Creates a new Oscillator with the provided configuration.

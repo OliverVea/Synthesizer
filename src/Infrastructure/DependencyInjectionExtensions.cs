@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Synthesizer.Domain.Interfaces;
+using Synthesizer.Application.Infrastructure;
 
-namespace Synthesizer.Stores.Memory;
+namespace Synthesizer.Infrastructure;
 
 public static class ServiceRegistrationExtension
 {
     public static void RegisterStores(this IServiceCollection services)
     {
+        services.AddSingleton<IOscillatorStore, OscillatorStore>();
         services.AddSingleton<ISynthesizerStore, SynthesizerStore>();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Synthesizer.Application;
-using Synthesizer.Stores.Memory;
+using Synthesizer.Infrastructure;
 
 namespace Tests.Integration;
 

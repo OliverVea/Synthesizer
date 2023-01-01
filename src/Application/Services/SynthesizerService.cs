@@ -1,6 +1,8 @@
 ﻿using Synthesizer.Application.Helpers;
+using Synthesizer.Application.Infrastructure;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Synthesizers;
+using Synthesizer.Domain.Exceptions;
 using Synthesizer.Domain.Interfaces;
 
 namespace Synthesizer.Application.Services;
@@ -46,14 +48,12 @@ public class SynthesizerService : ISynthesizerService
     private SynthesizerInformation GetRequiredSynthesizer(SynthesizerId synthesizerId, string parameterName)
     {
         var synthesizer = GetSynthesizer(synthesizerId);
-
-        if (synthesizer == null)
-            throw new ArgumentException($"Could not find synthesizer with id '{synthesizerId}'.", parameterName);
+        if (synthesizer == null) throw new NoSynthesizerWithIdException(synthesizerId, parameterName);
 
         return synthesizer;
     }
 
-    public SynthesizerInformation[] ListSynthesizers()
+    public IEnumerable<SynthesizerInformation> ListSynthesizers()
     {
         return _store.ListSynthesizers();
     }
