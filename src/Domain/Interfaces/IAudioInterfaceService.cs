@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Domain.Services;
+﻿namespace Synthesizer.Domain.Interfaces;
 
 /// <summary>
 /// Service for managing and using audio queues.

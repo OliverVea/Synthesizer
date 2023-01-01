@@ -1,4 +1,4 @@
-﻿namespace Synthesizer.Domain.Services;
+﻿namespace Synthesizer.Domain.Interfaces;
 
 /// <summary>
 /// Interface for interacting with an audio interface.

@@ -1,7 +1,7 @@
 ﻿using Synthesizer.Domain.Entities;
 using Synthesizer.Domain.Entities.Ids;
 
-namespace Synthesizer.Domain.Services;
+namespace Synthesizer.Domain.Interfaces;
 
 /// <summary>
 /// Used to get a SynthesizerConfiguration, which can be used to generate audio.

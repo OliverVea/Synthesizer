@@ -1,6 +1,6 @@
 ﻿using Synthesizer.Domain.Entities;
 
-namespace Synthesizer.Domain.Services;
+namespace Synthesizer.Domain.Interfaces;
 
 /// <summary>
 /// Used to generate audio samples from a SynthesizerConfiguration.

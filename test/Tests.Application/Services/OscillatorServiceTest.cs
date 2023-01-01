@@ -6,7 +6,7 @@ using Synthesizer.Application.Services;
 using Synthesizer.Domain.Entities.Ids;
 using Synthesizer.Domain.Entities.Oscillators;
 using Synthesizer.Domain.Exceptions;
-using Synthesizer.Domain.Services;
+using Synthesizer.Domain.Interfaces;
 
 namespace Tests.Application.Services;
 

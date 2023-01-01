@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Synthesizer.Application.Helpers;
 using Synthesizer.Application.Services;
-using Synthesizer.Domain.Services;
+using Synthesizer.Domain.Interfaces;
 
 namespace Tests.Application.Services;
 
