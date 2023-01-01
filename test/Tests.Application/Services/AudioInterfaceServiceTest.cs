@@ -12,7 +12,8 @@ public class AudioInterfaceServiceTest
     [SetUp]
     public void SetupMocks()
     {
-        _sut = new AudioInterfaceService();
+        var audioInterfaceProviders = Array.Empty<IAudioInterfaceProvider>();
+        _sut = new AudioInterfaceService(audioInterfaceProviders);
     }
 
     [Test]
@@ -34,6 +35,28 @@ public class AudioInterfaceServiceTest
 
         // Assert
         Assert.IsEmpty(actual);
+    }
+
+    [Test]
+    public void ListAudioInterfaces_WithProviderWithInterface_GetsInterface()
+    {
+        // Arrange
+        var audioInterfaces = new[]
+        {
+            new Mock<IAudioInterface>().Object
+        };
+
+        var audioInterfaceProvider = new Mock<IAudioInterfaceProvider>();
+        audioInterfaceProvider.Setup(x => x.ListAudioInterfaces()).Returns(audioInterfaces);
+        var audioInterfaceProviders = new List<IAudioInterfaceProvider> { audioInterfaceProvider.Object };
+
+        _sut = new AudioInterfaceService(audioInterfaceProviders);
+
+        // Act
+        var actual = _sut.ListAudioInterfaces();
+
+        // Assert
+        CollectionAssert.AreEqual(audioInterfaces, actual);
     }
 
     # endregion

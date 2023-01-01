@@ -4,8 +4,15 @@ namespace Synthesizer.Application.Services;
 
 public class AudioInterfaceService : IAudioInterfaceService
 {
-    public List<IAudioInterface> ListAudioInterfaces()
+    private readonly IEnumerable<IAudioInterfaceProvider> _audioInterfaceProviders;
+
+    public AudioInterfaceService(IEnumerable<IAudioInterfaceProvider> audioInterfaceProviders)
     {
-        return new List<IAudioInterface>();
+        _audioInterfaceProviders = audioInterfaceProviders;
+    }
+
+    public IAudioInterface[] ListAudioInterfaces()
+    {
+        return _audioInterfaceProviders.SelectMany(x => x.ListAudioInterfaces()).ToArray();
     }
 }
