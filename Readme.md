@@ -1,6 +1,6 @@
 ﻿# Synthesizer Project
 
-**TODO**
+WIP project of writing a (relatively) simple synthesizer. Developed using TDD (Test-Driven Development) principles.
 
 ## Project Management
 
